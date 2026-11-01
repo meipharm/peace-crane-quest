@@ -379,12 +379,16 @@ function photoFigure(p) {
   </figure>`;
 }
 
-// 開放時間表（每個場館一列）
+// 開放時間（每個場館一張小卡，手機不用左右捲動）
 function visitTable(places) {
-  return `<div class="table-wrap"><table class="visit-table">
-    <thead><tr><th>場館</th><th>開放時間</th><th>休館日</th><th>門票</th></tr></thead>
-    <tbody>${places.map(p => `<tr><td>${esc(p.place)}</td><td>${esc(p.hours)}</td><td>${esc(p.closed)}</td><td>${esc(p.fee)}</td></tr>`).join('')}</tbody>
-  </table></div>`;
+  return `<div class="visit-list">${places.map(p => `<div class="visit-item">
+    <b>${esc(p.place)}</b>
+    <dl>
+      <dt>開放</dt><dd>${esc(p.hours)}</dd>
+      <dt>休館</dt><dd>${esc(p.closed)}</dd>
+      <dt>門票</dt><dd>${esc(p.fee)}</dd>
+    </dl>
+  </div>`).join('')}</div>`;
 }
 
 // 參考資料的一筆：有網址就開新分頁
