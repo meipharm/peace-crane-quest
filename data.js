@@ -6,7 +6,7 @@
 // refs：參考資料，對應下方 SOURCES 的代號
 const NODES = [
   {
-    id: 'castle', day: 1, name: '廣島城', icon: '🏯', x: 205, y: 120, route: [],
+    id: 'castle', day: 1, name: '廣島城', icon: '🏯', x: 195, y: 90, route: [],
     helper: 'gold',
     tagline: '台灣命運的起點',
     story: '130 年前，日本和清朝打仗，日本天皇和指揮中心「大本營」就搬到這座城。那場仗打完，台灣就變成日本的了。所以台灣被日本統治 50 年，就是從這座城的那場戰爭開始的。後來原子彈把這座城也炸毀了，現在看到的是戰後重建的。',
@@ -36,7 +36,7 @@ const NODES = [
     ]
   },
   {
-    id: 'shukkeien', day: 1, name: '縮景園', icon: '🌳', x: 290, y: 150, route: ['castle'],
+    id: 'shukkeien', day: 1, name: '縮景園', icon: '🌳', x: 245, y: 140, route: ['castle'],
     helper: 'green',
     tagline: '美麗庭園的另一面',
     story: '這是 400 年前蓋的漂亮庭園。原子彈爆炸那天，很多受傷的人逃到這裡找水喝、躲大火，有很多人就在這裡過世了。現在的庭園是戰後重新整修的。',
@@ -63,7 +63,7 @@ const NODES = [
     ]
   },
   {
-    id: 'peace', day: 2, name: '原爆之子像與資料館', icon: '🕊️', x: 175, y: 245, route: ['shukkeien'],
+    id: 'peace', day: 2, name: '原爆之子像與資料館', icon: '🕊️', x: 142, y: 255, route: ['shukkeien'],
     helper: 'white',
     tagline: '禎子與一千隻紙鶴',
     story: '1945 年 8 月 6 日早上 8 點 15 分，一顆原子彈在廣島上空爆炸，幾乎整座城市都毀了。那一年就有大約 14 萬人死亡。佐佐木禎子當時 2 歲，看起來沒受傷，但 12 歲時得了白血病。她聽說摺一千隻紙鶴就能實現願望，就在病床上一直摺，可惜最後還是過世了。她的同學募款蓋了「原爆之子像」，現在全世界的小朋友都會寄紙鶴來這裡。',
@@ -96,12 +96,13 @@ const NODES = [
     ]
   },
   {
-    id: 'dome', day: 2, name: '原爆圓頂館與折紙鶴塔', icon: '🏛️', x: 120, y: 190, route: ['peace'],
+    id: 'dome', day: 2, name: '原爆圓頂館與折紙鶴塔', icon: '🏛️', x: 205, y: 205, route: ['peace'],
     helper: 'red',
     tagline: '留下來的提醒',
     story: '這棟建築離爆炸中心很近，卻沒有完全倒下。廣島人決定不拆掉它，就讓它保持這個樣子，提醒全世界不要再發生這種事。旁邊的折紙鶴塔可以爬上頂樓看整個廣島，還可以摺一隻紙鶴，從高處丟進紙鶴牆。',
     parents: [
       '原爆圓頂館與嚴島神社在 1996 年同一年列為世界遺產。',
+      '原爆圓頂館就在元安川旁。廣島市中心是太田川分流形成的三角洲，常說有「六條川」；每年 8 月 6 日會在元安川放水燈悼念罹難者。',
       '公園內有「韓國人原爆犧牲者慰靈碑」，可帶孩子看：當時在廣島的不只日本人。',
       '下午安排折紙鶴塔，用動手做的活動平衡上午的沉重內容。'
     ],
@@ -110,7 +111,7 @@ const NODES = [
     mission: '在折紙鶴塔摺一隻紙鶴，丟進紙鶴牆。',
     howto: '從原爆之子像步行約 5 分鐘；折紙鶴塔就在原爆圓頂館旁。',
     maps: [{ label: '原爆圓頂館', q: '原爆ドーム' }, { label: '折紙鶴塔', q: 'おりづるタワー' }],
-    refs: ['unescoDome', 'unescoItsukushima', 'hiroshimaCity'],
+    refs: ['unescoDome', 'unescoItsukushima', 'hiroshimaCity', 'mlitOta', 'kotobankOta'],
     quiz: [
       { q: '原爆圓頂館為什麼沒有被拆掉？', options: ['留著提醒全世界不要再發生這種事', '因為沒有錢拆', '因為大家忘記了', '因為要改成遊樂場'],
         explain: '廣島人決定保留它，讓每個看到的人都記得戰爭的可怕。' },
@@ -451,5 +452,7 @@ const SOURCES = {
   taipeiPlus: { title: 'Raid on Taipei: Deadliest WWII Attack on Taiwan Remembered 80 Years On', by: 'TaiwanPlus', url: 'https://www.taiwanplus.com/news/taiwan-news/special-report/250530016/raid-on-taipei-deadliest-wwii-attack-on-taiwan-remembered-80-years-on', note: '台北大空襲' },
   kenpo: { title: 'The Constitution of Japan（英文版，第 9 條）', by: '日本眾議院', url: 'https://www.shugiin.go.jp/internet/itdb_kenpou.nsf/html/kenpou/en/constitution.htm', note: '放棄戰爭' },
   jmsdfWiki: { title: 'JMSDF Kure Museum', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/JMSDF_Kure_Museum', note: '鐵鯨館與秋潮號潛水艇' },
+  mlitOta: { title: '太田川水系 河川整備に関する資料', by: '日本國土交通省', url: 'https://www.mlit.go.jp/river/shinngikai_blog/shaseishin/kasenbunkakai/shouiinkai/r-jigyouhyouka/dai17kai/pdf/4-1.shiryou.pdf', note: '太田川分出放水路與舊太田川，再分出京橋川、猿猴川、天滿川、元安川' },
+  kotobankOta: { title: '太田川', by: 'コトバンク（日本大百科全書等）', url: 'https://kotobank.jp/word/%E5%A4%AA%E7%94%B0%E5%B7%9D-39335', note: '太田川在廣島市區分為六條河' },
   zuoying: { title: 'Zuoying Naval Base', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Zuoying_Naval_Base', note: '左營軍港' }
 };

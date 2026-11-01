@@ -107,6 +107,10 @@ a { color: var(--blue); }
 .sea { fill: var(--sea); }
 .land { fill: var(--land); stroke: #d3c39d; stroke-width: 2; }
 .river { fill: none; stroke: #9fd0e2; stroke-width: 5; stroke-linecap: round; }
+.river-label text {
+  font-size: 10px; font-weight: 700; fill: #3f86a3; writing-mode: vertical-rl;
+  paint-order: stroke; stroke: #ece0c3; stroke-width: 3px; stroke-linejoin: round;
+}
 .inset { fill: rgba(255, 255, 255, .55); stroke: var(--ink); stroke-dasharray: 5 4; stroke-width: 1.5; }
 .flight { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 3 6; opacity: .45; }
 .map-label { font-size: 13px; font-weight: 700; fill: var(--ink); opacity: .75; }

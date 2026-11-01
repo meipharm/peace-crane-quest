@@ -223,17 +223,29 @@ function renderMap() {
       <rect width="400" height="560" class="sea"/>
       <path class="land" d="M0,0 H400 V250 C360,262 338,300 358,330 C378,352 372,392 330,398 C300,334 262,302 232,300 C204,318 182,302 152,292 C122,282 100,302 60,292 C30,286 12,272 0,282 Z"/>
       <ellipse class="land" cx="70" cy="350" rx="50" ry="36"/>
-      <path class="river" d="M120,40 C130,120 110,200 125,290"/>
-      <path class="river" d="M170,40 C175,120 160,200 170,295"/>
-      <path class="river" d="M235,60 C240,140 230,220 238,300"/>
-      <text x="300" y="60" class="map-label">✈ 廣島機場</text>
-      <text x="250" y="210" class="map-label">廣島市</text>
+      <!-- 廣島市中心六條河（示意）：由西到東 -->
+      <path class="river" d="M120,0 C90,80 40,150 28,288"/>
+      <path class="river" d="M140,0 C120,90 80,170 72,292"/>
+      <path class="river" d="M150,0 C140,100 118,180 112,286"/>
+      <path class="river" d="M128,150 C150,180 178,220 182,298"/>
+      <path class="river" d="M160,40 C230,70 285,130 285,304"/>
+      <path class="river" d="M283,160 C300,200 310,260 305,328"/>
+      <g class="river-label">
+        <text x="40" y="200">放水路</text>
+        <text x="80" y="200">天滿川</text>
+        <text x="115" y="190">本川</text>
+        <text x="178" y="240">元安川</text>
+        <text x="286" y="200">京橋川</text>
+        <text x="306" y="250">猿猴川</text>
+      </g>
+      <text x="318" y="40" class="map-label">✈ 廣島機場</text>
+      <text x="198" y="275" class="map-label">廣島市</text>
       <text x="40" y="400" class="map-label">宮島</text>
       <text x="335" y="315" class="map-label">吳市</text>
       <text x="230" y="480" class="map-label sea-label">瀨戶內海</text>
       <rect x="10" y="445" width="160" height="105" rx="14" class="inset"/>
       <text x="22" y="465" class="map-label">台灣基地</text>
-      <path class="flight" d="M350,70 C420,250 260,520 130,505"/>
+      <path class="flight" d="M365,55 C420,250 260,520 130,505"/>
       ${edges.join('')}
       ${nodes}
     </svg>
@@ -242,6 +254,7 @@ function renderMap() {
     <h2>你的鶴寶小隊</h2>
     <div class="squad">${squad}</div>
     <p class="muted small">提示：所有地點都可以直接點進去，照你們實際的行程順序玩就好。虛線是建議路線，完成後會變成紅色。</p>
+    <p class="muted small">🗺️ 這是示意圖，位置和距離都經過簡化。廣島市中心是太田川分流形成的三角洲，由西到東有六條河：太田川放水路、天滿川、本川（舊太田川）、元安川、京橋川、猿猴川（依日本國土交通省資料）。</p>
   </section>
   <section class="card">
     <h2>地點清單</h2>
