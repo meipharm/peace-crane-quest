@@ -293,6 +293,8 @@ function renderNode(n) {
     </div>
   </section>
 
+  ${photoFigure(PHOTOS[n.photo])}
+
   <section class="card story">
     <h2>📖 故事時間</h2>
     <p>${esc(n.story)}</p>
@@ -333,6 +335,13 @@ function renderNode(n) {
     <p class="muted small">「導航」會從你現在的位置，用大眾運輸規劃路線，會開啟 Google 地圖。</p>
   </section>
 
+  ${n.visit ? `<section class="card visit">
+    <h2>🕒 開放時間與休館日</h2>
+    ${visitTable(n.visit.places)}
+    ${n.visit.tip ? `<p class="tip">${esc(n.visit.tip)}</p>` : ''}
+    <p class="muted small">2026 年 11 月查核官網，出發前請再確認：<a href="${esc(n.visit.url)}" target="_blank" rel="noopener">官方資訊</a></p>
+  </section>` : ''}
+
   <details class="card parents-note">
     <summary>👨‍👩‍👦 爸媽補充（點開看）</summary>
     <ul>${n.parents.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
@@ -359,6 +368,23 @@ function renderNode(n) {
     addCranes(1);
     renderNode(n);
   });
+}
+
+// 地點照片與 CC 授權標示
+function photoFigure(p) {
+  if (!p) return '';
+  return `<figure class="photo">
+    <img src="${esc(p.src)}" alt="${esc(p.caption)}" loading="lazy">
+    <figcaption>${esc(p.caption)}<br><small>照片：<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.author)}</a>／<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>，經縮圖</small></figcaption>
+  </figure>`;
+}
+
+// 開放時間表（每個場館一列）
+function visitTable(places) {
+  return `<div class="table-wrap"><table class="visit-table">
+    <thead><tr><th>場館</th><th>開放時間</th><th>休館日</th><th>門票</th></tr></thead>
+    <tbody>${places.map(p => `<tr><td>${esc(p.place)}</td><td>${esc(p.hours)}</td><td>${esc(p.closed)}</td><td>${esc(p.fee)}</td></tr>`).join('')}</tbody>
+  </table></div>`;
 }
 
 // 參考資料的一筆：有網址就開新分頁
@@ -653,6 +679,13 @@ function renderParents() {
   ${days}
 
   <section class="card">
+    <h2>🕒 開放時間與休館日一覽</h2>
+    <p class="tip">⚠️ 吳市的大和博物館和鐵鯨館每週二休館，D4 不要排在星期二。和平紀念資料館 7:30–8:30 入館要先上官網買 WEB 票。</p>
+    ${visitTable(NODES.filter(n => n.visit).flatMap(n => n.visit.places.map(p => ({ ...p, place: `D${n.day}｜${p.place}` }))))}
+    <p class="muted small">2026 年 11 月查核各官網。開放時間是 4 月的時段，出發前請再到各地點頁的「官方資訊」確認。</p>
+  </section>
+
+  <section class="card">
     <h2>交通總整理</h2>
     <div class="table-wrap"><table>
       <thead><tr><th>路段</th><th>交通工具</th><th>時間</th><th>付款</th></tr></thead>
@@ -672,6 +705,11 @@ function renderParents() {
   <details class="card refs">
     <summary>📚 參考資料（全部 ${Object.keys(SOURCES).length} 筆）</summary>
     <ol>${Object.values(SOURCES).map(sourceItem).join('')}</ol>
+  </details>
+
+  <details class="card refs">
+    <summary>📷 照片來源（${Object.keys(PHOTOS).length} 張，CC 授權）</summary>
+    <ol>${Object.values(PHOTOS).map(p => `<li>${esc(p.caption)}<br><small>作者：<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.author)}</a>｜授權：<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>｜來源：Wikimedia Commons，經縮圖</small></li>`).join('')}</ol>
   </details>
 
   <p class="muted small disclaimer">傷亡人數、少年工人數等為常見概略數字，各資料略有差異；交通時間與價格為估計值。出發前請以各展館、交通公司官網為準。</p>`;

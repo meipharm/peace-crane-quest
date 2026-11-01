@@ -13,7 +13,7 @@ const NODES = [
     parents: [
       '甲午戰爭（1894–95）期間，大本營設在廣島城，連國會都在廣島召開。城內留有「大本營遺跡」基石。',
       '廣島的宇品港從那時起就是陸軍送兵出海的主要港口，廣島成為「軍事城市」，這也是後來被選為原爆目標的原因之一。',
-      '天守閣在原爆中倒塌，現在是戰後重建。因耐震問題，內部可能已關閉，出發前請確認。'
+      '天守閣在原爆中倒塌，1958 年用鋼筋混凝土重建；因老化與耐震不足，2026 年 3 月已閉城，只能看外觀。二之丸復元建物仍可免費參觀。'
     ],
     taiwan: '甲午戰爭 → 1895 年《馬關條約》→ 台灣割讓給日本，開始 50 年的日治時期。廣島剛好串起日治的「開始」與「結束」。',
     ask: '如果你住在當時的台灣，有一天大人說「以後我們要變成日本人了」，你會怎麼想？',
@@ -21,6 +21,15 @@ const NODES = [
     howto: '從縮景園步行約 15 分鐘；從廣島車站搭計程車約 10 分鐘。',
     maps: [{ label: '廣島城', q: '広島城' }],
     refs: ['daihonei', 'rijo', 'shimonoseki'],
+    photo: 'castle',
+    visit: {
+      places: [
+        { place: '廣島城天守', hours: '2026 年 3 月已閉城，只能看外觀', closed: '—', fee: '—' },
+        { place: '二之丸復元建物', hours: '4–9 月 9:00–17:30（入館至閉館前 30 分）', closed: '12/29–12/31、臨時休館日', fee: '免費' }
+      ],
+      tip: '大本營遺跡在本丸，城址可以自由走走。',
+      url: 'https://hiroshimacastle.jp/'
+    },
     quiz: [
       { q: '130 年前，日本和清朝打的那場仗叫什麼？', options: ['甲午戰爭', '珍珠港事件', '鴉片戰爭', '沖繩戰'],
         explain: '1894 年開始的甲午戰爭，日本打贏了清朝。' },
@@ -50,7 +59,15 @@ const NODES = [
     mission: '在園裡找找看有沒有「被爆樹木」的說明牌：經歷過原爆還活下來的樹。',
     howto: '從廣島車站步行約 15 分鐘，或搭計程車。',
     maps: [{ label: '縮景園', q: '縮景園 広島' }],
-    refs: ['shukkeien', 'hiroshimaCity'],
+    refs: ['shukkeien', 'hiroshimaCity', 'shukkeienOfficial'],
+    photo: 'shukkeien',
+    visit: {
+      places: [
+        { place: '縮景園', hours: '3/16–9/15 9:00–18:00（入園至閉園前 30 分）', closed: '年末 12/29–12/31', fee: '大人 350 日圓；小學生至高中生免費' }
+      ],
+      tip: '',
+      url: 'https://shukkeien.jp/'
+    },
     quiz: [
       { q: '縮景園大約是多久以前蓋的？', options: ['大約 400 年前', '大約 40 年前', '大約 4000 年前', '去年'],
         explain: '縮景園在 1620 年開始建造，到現在大約 400 年。' },
@@ -71,14 +88,23 @@ const NODES = [
       '先參觀東館：介紹原爆前的廣島，包括軍事城市與日本發動戰爭的背景，讓孩子知道「為什麼會發生」。',
       '本館有燒焦的三輪車、便當盒等遺物，部分照片較衝擊。家長可先走一步，太刺激的快速帶過。',
       '可補一句：「日本也讓其他國家很多人受苦，戰爭裡沒有真正的贏家。」',
-      '一開門就進館人比較少；可租中文語音導覽；兒童免費。'
+      '7:30–8:30 入館一定要先上官網買 WEB 票；可租中文語音導覽；國中生以下免費。'
     ],
     taiwan: '同一年 5 月 31 日，台北遭到美軍大轟炸，總督府（現在的總統府）被炸中，造成大量傷亡。回國後可以預約參觀總統府。',
     ask: '禎子摺紙鶴是為了什麼？如果你也摺一隻，會許什麼願望？',
     mission: '把在台灣摺好的紙鶴，獻給原爆之子像。',
     howto: '廣島車站搭路面電車 2 號或 6 號線，到「原爆ドーム前」（原爆圓頂館前），約 15 分鐘，下車步行 3 分鐘。',
     maps: [{ label: '原爆之子像', q: '原爆の子の像' }, { label: '和平紀念資料館', q: '広島平和記念資料館' }],
-    refs: ['hiroshimaCity', 'cranes', 'hpmm', 'taipeiCNA', 'taipeiPlus'],
+    refs: ['hiroshimaCity', 'cranes', 'hpmm', 'taipeiCNA', 'taipeiPlus', 'hpmmHours'],
+    photo: 'peace',
+    visit: {
+      places: [
+        { place: '和平紀念資料館', hours: '3–7 月 7:30–19:00（入館至閉館前 30 分）', closed: '12/30、12/31；2 月中旬換展休館', fee: '大人 200 日圓；國中生以下免費' },
+        { place: '原爆之子像', hours: '在和平紀念公園內，全天開放', closed: '—', fee: '免費' }
+      ],
+      tip: '7:30–8:30 入館一定要先上官網買 WEB 票；8:30 以後也建議先買，減少排隊。',
+      url: 'https://hpmmuseum.jp/modules/info/index.php?action=PageView&page_id=47&lang=eng'
+    },
     quiz: [
       { q: '原子彈在廣島爆炸是哪一天？', options: ['1945 年 8 月 6 日', '1945 年 8 月 15 日', '1941 年 12 月 8 日', '1945 年 5 月 31 日'],
         explain: '1945 年 8 月 6 日。三天後（8 月 9 日），長崎也被投下原子彈。' },
@@ -111,7 +137,16 @@ const NODES = [
     mission: '在折紙鶴塔摺一隻紙鶴，丟進紙鶴牆。',
     howto: '從原爆之子像步行約 5 分鐘；折紙鶴塔就在原爆圓頂館旁。',
     maps: [{ label: '原爆圓頂館', q: '原爆ドーム' }, { label: '折紙鶴塔', q: 'おりづるタワー' }],
-    refs: ['unescoDome', 'unescoItsukushima', 'hiroshimaCity', 'mlitOta', 'kotobankOta'],
+    refs: ['unescoDome', 'unescoItsukushima', 'hiroshimaCity', 'mlitOta', 'kotobankOta', 'orizuru'],
+    photo: 'dome',
+    visit: {
+      places: [
+        { place: '原爆圓頂館', hours: '從外面參觀，全天開放（不能進入內部）', closed: '—', fee: '免費' },
+        { place: '折紙鶴塔', hours: '10:00–18:00（展望台入場至 17:30）', closed: '偶有臨時休館，看官網', fee: '大人 2,200、國高中 1,400、小學生 900 日圓；投紙鶴每隻 100 日圓' }
+      ],
+      tip: '折紙鶴塔一家三口約 5,300 日圓，可依預算決定要不要上去。',
+      url: 'https://www.orizurutower.jp/user-guide/ticket/'
+    },
     quiz: [
       { q: '原爆圓頂館為什麼沒有被拆掉？', options: ['留著提醒全世界不要再發生這種事', '因為沒有錢拆', '因為大家忘記了', '因為要改成遊樂場'],
         explain: '廣島人決定保留它，讓每個看到的人都記得戰爭的可怕。' },
@@ -141,7 +176,16 @@ const NODES = [
     mission: '在嚴島神社和海上大鳥居拍一張全家福。',
     howto: '廣島車站搭 JR 山陽本線（往岩國方向）到「宮島口」約 30 分鐘；步行到碼頭搭 JR 渡輪約 10 分鐘，另付宮島訪問稅每人 100 日圓。',
     maps: [{ label: '宮島口渡輪碼頭', q: '宮島口旅客ターミナル' }, { label: '嚴島神社', q: '厳島神社 宮島' }],
-    refs: ['unescoItsukushima', 'shintoTW', 'grandShrine', 'taoyuan'],
+    refs: ['unescoItsukushima', 'shintoTW', 'grandShrine', 'taoyuan', 'itsukushimaOfficial', 'ropeway', 'kodomoClosure'],
+    photo: 'miyajima',
+    visit: {
+      places: [
+        { place: '嚴島神社', hours: '3/1–10/14 6:30–18:00，全年無休', closed: '無', fee: '大人 300、國中小學生 100 日圓（只收現金）' },
+        { place: '宮島纜車', hours: '上山 9:00–16:00，最後下山 16:30', closed: '定期檢修停駛期間', fee: '來回大人 2,000、小學生 1,000 日圓' }
+      ],
+      tip: '纜車在人多的「特定日」要先上網預約（3 個月前開放），出發前看官網首頁。',
+      url: 'https://www.itsukushimajinja.jp/jp/admission.html'
+    },
     quiz: [
       { q: '日本人拜拜的地方叫做什麼？', options: ['神社', '城堡', '教堂', '市場'],
         explain: '神社是日本神道教的宗教場所，入口常有紅色的「鳥居」。' },
@@ -166,7 +210,7 @@ const NODES = [
     parents: [
       '吳市是當時日本最重要的海軍基地和造船廠之一。',
       '大和號最後一次出擊是「有去無回」的任務，可以聊：戰爭中國家怎麼要求年輕人犧牲生命？',
-      '大和博物館近年整修，出發前請確認開放狀況與臨時展場。',
+      '大和博物館已在 2026 年 4 月 23 日整修完成重新開館；每週二休館，D4 不要排在星期二。',
       '這一站的台灣連結最值得講：台灣少年工、台籍日本兵、高砂義勇隊。'
     ],
     taiwan: '戰爭末期，8 千多名台灣少年到日本神奈川的海軍工廠造戰鬥機，很多人只有 12 到 15 歲。約 20 萬名台灣人被送上戰場當兵或軍屬，約 3 萬人戰死或失蹤。',
@@ -174,7 +218,15 @@ const NODES = [
     mission: '在 1/10 大和號模型前，找找看船上的大砲有幾座砲塔。',
     howto: '廣島車站搭 JR 吳線「快速」到「吳」站約 40 分鐘，出站走空橋步行約 5 分鐘。',
     maps: [{ label: '大和博物館', q: '大和ミュージアム' }],
-    refs: ['yamatoMLIT', 'yamatoOfficial', 'yamatoWiki', 'causewayUSMC', 'causewayUSNI', 'shonenko', 'shonenkoBook', 'soldiersTT', 'takasago'],
+    refs: ['yamatoMLIT', 'yamatoOfficial', 'yamatoWiki', 'causewayUSMC', 'causewayUSNI', 'shonenko', 'shonenkoBook', 'soldiersTT', 'takasago', 'yamatoHours'],
+    photo: 'kure',
+    visit: {
+      places: [
+        { place: '大和博物館', hours: '9:00–18:00（入館至 17:30）', closed: '每週二（遇假日改隔天）；4/29–5/5 無休', fee: '一般 1,000、高中 300、國中小 200 日圓（非吳市民）' }
+      ],
+      tip: '⚠️ D4 不要排在星期二：大和博物館和鐵鯨館都休館！大和博物館已在 2026 年 4 月 23 日整修完成重新開館。',
+      url: 'https://yamato-museum.com/%E6%9D%A5%E9%A4%A8%E6%A1%88%E5%86%85/%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/'
+    },
     quiz: [
       { q: '大和號是什麼？', options: ['當時世界上最大的戰艦', '一架飛機', '一艘漁船', '一列火車'],
         explain: '大和號是當時世界最大的戰艦，大砲也是最大的。' },
@@ -207,7 +259,15 @@ const NODES = [
     mission: '走進潛水艇，看看船員睡的床有多窄，躺上去會不會擠？',
     howto: '就在大和博物館對面，步行 2 分鐘。',
     maps: [{ label: '鐵鯨館', q: 'てつのくじら館' }],
-    refs: ['kenpo', 'jmsdfWiki', 'zuoying', 'soldiersTT', 'soldiersWiki'],
+    refs: ['kenpo', 'jmsdfWiki', 'zuoying', 'soldiersTT', 'soldiersWiki', 'tetsuInfo'],
+    photo: 'tetsu',
+    visit: {
+      places: [
+        { place: '鐵鯨館（海上自衛隊吳史料館）', hours: '10:00–18:00（入館至 17:30）', closed: '每週二（遇假日改隔天）、12/29–1/3；黃金週與暑假無休', fee: '免費' }
+      ],
+      tip: '⚠️ 和大和博物館一樣，星期二休館。',
+      url: 'https://www.museum.or.jp/museum/14360'
+    },
     quiz: [
       { q: '鐵鯨館裡可以走進去參觀的是什麼？', options: ['真正的潛水艇', '戰鬥機', '火箭', '坦克'],
         explain: '那是一艘真的、退役的自衛隊潛水艇。' },
@@ -238,6 +298,7 @@ const NODES = [
     howto: '退房後行李寄放飯店，逛廣島車站買伴手禮；起飛前 3 小時搭機場巴士（約 50 分鐘）。',
     maps: [{ label: '廣島車站', q: '広島駅' }, { label: '廣島機場', q: '広島空港' }],
     refs: ['taipeiCNA', 'shimonoseki'],
+    photo: 'home',
     quiz: [
       { q: '1945 年的同一件事，日本叫「終戰」，台灣過去常叫什麼？', options: ['光復', '開學', '過年', '畢業'],
         explain: '同一件事有不同說法：終戰、光復、戰後、日本投降。' },
@@ -296,6 +357,7 @@ const RANKS = [
 const TRIP_NOTES = [
   '4 月中旬：櫻花大多已謝，人比較少、價格比清明連假好。',
   '日本黃金週從 4 月 29 日起，回程最好在 4 月 28 日前。',
+  '⚠️ 吳市的大和博物館和鐵鯨館每週二休館，D4 不要排在星期二。',
   '天氣：早晚約 12°C，白天約 20～22°C，帶薄外套和折疊傘。',
   '住宿：4 晚都住廣島車站附近同一間飯店，三人房（2 大 1 小）。'
 ];
@@ -306,14 +368,14 @@ const PARENT_DAYS = [
     ['13:30', '往廣島車站', '機場巴士約 50 分鐘，售票機買票，孩子買兒童票'],
     ['14:30', '飯店寄放行李', '步行'],
     ['15:00', '縮景園', '車站步行約 15 分鐘或計程車'],
-    ['16:00', '廣島城（城址、大本營遺跡）', '縮景園步行約 15 分鐘'],
+    ['16:00', '廣島城（城址、大本營遺跡、二之丸）', '縮景園步行約 15 分鐘；天守已閉城，看外觀'],
     ['17:30', '回飯店辦入住', '計程車或路面電車'],
     ['18:30', '晚餐：御好燒村的廣島燒', '路面電車到「八丁堀」，步行 5 分鐘']
   ], tip: '路面電車：後門上車、前門下車付錢。大人刷 IC 卡，孩子付兒童票現金（約半價）。' },
   { day: 2, title: '和平紀念公園：戰爭的代價', rows: [
     ['07:30', '出發', '路面電車 2 或 6 號線到「原爆ドーム前」約 15 分鐘'],
     ['08:00', '原爆之子像，獻上紙鶴', '下車步行 3 分鐘'],
-    ['08:30', '和平紀念資料館（約 2 小時）', '一開門進館；中文語音導覽；兒童免費'],
+    ['08:30', '和平紀念資料館（約 2 小時）', '先上官網買 WEB 票；中文語音導覽；國中生以下免費'],
     ['10:30', '公園內休息、吃點心', ''],
     ['11:00', '韓國人原爆犧牲者慰靈碑', '公園內步行'],
     ['11:30', '原爆圓頂館', '步行到河對岸'],
@@ -326,18 +388,18 @@ const PARENT_DAYS = [
     ['09:15', '搭渡輪到宮島', 'JR 渡輪約 10 分鐘；宮島訪問稅每人 100 日圓'],
     ['09:30', '嚴島神社、海上大鳥居、看鹿', '碼頭步行約 10 分鐘'],
     ['12:00', '午餐：烤牡蠣、星鰻飯，點心楓葉饅頭', '表參道商店街'],
-    ['13:30', '纜車上彌山（體力夠再去）', '纜車可能整修停駛，先確認'],
+    ['13:30', '纜車上彌山（體力夠再去）', '上山 9:00–16:00；「特定日」要先上網預約'],
     ['16:00', '原路回廣島', '渡輪＋JR']
-  ], tip: '先查潮汐時間。鹿會搶食物和紙張（地圖、車票），手上東西拿好。雨天備案：廣島兒童文化科學館。' },
+  ], tip: '先查潮汐時間。鹿會搶食物和紙張（地圖、車票），手上東西拿好。雨天備案：把 D3 和 D4 對調（吳市以室內博物館為主，但避開星期二）。廣島兒童文化科學館 2027 年 4 月起整修休館，不能當備案。' },
   { day: 4, title: '吳市：戰艦、潛水艇與台灣少年工', rows: [
     ['08:30', '出發', 'JR 吳線「快速」到「吳」站約 40 分鐘'],
-    ['09:30', '大和博物館', '走空橋步行約 5 分鐘；先確認整修狀況'],
+    ['09:30', '大和博物館', '走空橋步行約 5 分鐘；每週二休館'],
     ['11:30', '鐵鯨館（進潛水艇）', '對面，免費'],
     ['12:30', '午餐：海軍咖哩', '附近步行'],
     ['14:00', '吳港軍艦巡航（約 30 分鐘）', '碼頭在附近，現場買票，先確認航班'],
     ['15:30', '回廣島', 'JR 吳線'],
     ['18:00', '最後一晚晚餐', '']
-  ], tip: '這是孩子最開心的一天，也是台灣連結最多的一天。' },
+  ], tip: '⚠️ 大和博物館和鐵鯨館每週二休館，這天不要排在星期二。這是孩子最開心的一天，也是台灣連結最多的一天。' },
   { day: 5, title: '返程：整理這趟旅程', rows: [
     ['10:00', '退房，行李寄放飯店櫃檯', ''],
     ['10:30', '廣島車站買伴手禮', '楓葉饅頭、廣島燒醬、檸檬零食'],
@@ -416,9 +478,9 @@ const CHECKLIST = [
   'Visit Japan Web 填好',
   '日幣現金、信用卡',
   '訂單截圖和紙本各一份',
-  '大和博物館整修狀況、開館時間',
-  '廣島城天守閣是否開放',
-  '宮島纜車是否運行、潮汐時間',
+  'D4 吳市不是星期二（大和博物館、鐵鯨館週二休館）',
+  '和平紀念資料館 WEB 票（7:30–8:30 入館必須預約）',
+  '宮島纜車是否為「特定日」（要先預約）、潮汐時間',
   '吳港軍艦巡航航班時間',
   '回程日期在 4 月 28 日前（避開黃金週）',
   '和孩子一起讀禎子的故事、摺好紙鶴'
@@ -430,7 +492,7 @@ const SOURCES = {
   cranes: { title: 'Paper Cranes and Children’s Peace Monument', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/english/peace/1033408/1009685.html', note: '原爆之子像與獻紙鶴' },
   hpmm: { title: '廣島和平紀念資料館', by: '官方網站', url: 'https://hpmmuseum.jp/?lang=eng', note: '開館資訊、展示內容' },
   daihonei: { title: '絵はがきからたどる広島あの頃：広島城、広島大本営趾', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/tourism-culture/history/1003068/1027532/1032131/1032137.html', note: '甲午戰爭時大本營設於廣島城' },
-  rijo: { title: '廣島城', by: '官方網站', url: 'https://www.rijo-castle.jp/', note: '天守閣開放狀況' },
+  rijo: { title: '廣島城', by: '官方網站', url: 'https://hiroshimacastle.jp/', note: '天守 2026 年 3 月閉城、二之丸開放時間' },
   shimonoseki: { title: 'Treaty of Shimonoseki', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Treaty_of_Shimonoseki', note: '1895 年《馬關條約》與台灣割讓' },
   shukkeien: { title: 'Shukkeien Garden', by: '日本觀光廳多語言解說文資料庫', url: 'https://www.mlit.go.jp/tagengo-db/en/R1-00480.html', note: '1620 年建園、原爆受損、被爆樹木' },
   unescoDome: { title: 'Hiroshima Peace Memorial (Genbaku Dome)', by: 'UNESCO 世界遺產中心', url: 'https://whc.unesco.org/en/list/775', note: '1996 年列入世界遺產' },
@@ -454,5 +516,25 @@ const SOURCES = {
   jmsdfWiki: { title: 'JMSDF Kure Museum', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/JMSDF_Kure_Museum', note: '鐵鯨館與秋潮號潛水艇' },
   mlitOta: { title: '太田川水系 河川整備に関する資料', by: '日本國土交通省', url: 'https://www.mlit.go.jp/river/shinngikai_blog/shaseishin/kasenbunkakai/shouiinkai/r-jigyouhyouka/dai17kai/pdf/4-1.shiryou.pdf', note: '太田川分出放水路與舊太田川，再分出京橋川、猿猴川、天滿川、元安川' },
   kotobankOta: { title: '太田川', by: 'コトバンク（日本大百科全書等）', url: 'https://kotobank.jp/word/%E5%A4%AA%E7%94%B0%E5%B7%9D-39335', note: '太田川在廣島市區分為六條河' },
+  hpmmHours: { title: 'Hours and Admission', by: '廣島和平紀念資料館官方網站', url: 'https://hpmmuseum.jp/modules/info/index.php?action=PageView&page_id=47&lang=eng', note: '開館時間、休館日、門票、WEB 票預約時段' },
+  shukkeienOfficial: { title: '縮景園', by: '官方網站', url: 'https://shukkeien.jp/', note: '開園時間與入園料' },
+  orizuru: { title: 'チケット料金表', by: '折紙鶴塔官方網站', url: 'https://www.orizurutower.jp/user-guide/ticket/', note: '門票；營業時間見官網「営業時間」頁' },
+  itsukushimaOfficial: { title: '拝観施設及び料金', by: '嚴島神社官方網站', url: 'https://www.itsukushimajinja.jp/jp/admission.html', note: '參拜時間與昇殿料' },
+  ropeway: { title: '営業時間・運賃・設備', by: '宮島纜車官方網站', url: 'https://miyajima-ropeway.info/fare/', note: '營業時間、票價；特定日預約見首頁' },
+  yamatoHours: { title: 'ご利用について（開館日時・料金等）', by: '大和博物館官方網站', url: 'https://yamato-museum.com/%E6%9D%A5%E9%A4%A8%E6%A1%88%E5%86%85/%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/', note: '開館時間、週二休館、觀覽料' },
+  tetsuInfo: { title: '海上自衛隊呉史料館 愛称「てつのくじら館」', by: 'インターネットミュージアム（日本博物館協會相關網站）', url: 'https://www.museum.or.jp/museum/14360', note: '開館時間、週二休館、免費；官網為 jmsdf-kure-museum.go.jp' },
+  kodomoClosure: { title: 'いろいろなしせつ　こども文化科学館', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/soshiki/46/11502.html', note: '2027 年 4 月 1 日起整修休館' },
   zuoying: { title: 'Zuoying Naval Base', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Zuoying_Naval_Base', note: '左營軍港' }
+};
+
+// ===== 照片：Wikimedia Commons 的 CC 授權圖片（縮圖 960px），姓名標示見 author、license =====
+const PHOTOS = {
+  castle: { src: 'images/castle.jpg', caption: '廣島城天守與護城河', author: 'DXR', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Hiroshima_Castle,_West_view_20190417_1.jpg' },
+  shukkeien: { src: 'images/shukkeien.jpg', caption: '縮景園的池塘與庭園', author: 'Jakub Hałun', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:20100722_Hiroshima_Shukkeien_4387.jpg' },
+  peace: { src: 'images/peace.jpg', caption: '原爆之子像與紙鶴展示櫃', author: 'Hyppolyte de Saint-Rambert', license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0', source: 'https://commons.wikimedia.org/wiki/File:Hiroshima_Peace_Memorial_park_hdsr_Childrens_for_peace_S5_08.jpg' },
+  dome: { src: 'images/dome.jpg', caption: '從元安川對岸看原爆圓頂館', author: 'DXR', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Atomic_Bomb_Dome,_Hiroshima,_South_view_20190417_1.jpg' },
+  miyajima: { src: 'images/miyajima.jpg', caption: '嚴島神社的海上大鳥居', author: 'Jakub Hałun', license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0', source: 'https://commons.wikimedia.org/wiki/File:Itsukushima-jinja_torii,_Miyajima,_Japan,_20240816_1716_4048.jpg' },
+  kure: { src: 'images/kure.jpg', caption: '大和博物館的 1/10 戰艦大和號模型', author: '宮本すぐる', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0', source: 'https://commons.wikimedia.org/wiki/File:1-10_Battleship_Yamato.jpg' },
+  tetsu: { src: 'images/tetsu.jpg', caption: '鐵鯨館外的秋潮號潛水艇', author: 'Taisyo', license: 'CC BY-SA 3.0', licenseUrl: 'http://creativecommons.org/licenses/by-sa/3.0/', source: 'https://commons.wikimedia.org/wiki/File:JMSDF_AKISHIO.JPG' },
+  home: { src: 'images/home.jpg', caption: '台北的總統府，日治時期是台灣總督府', author: 'CEphoto, Uwe Aranas', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0', source: 'https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Presidential-Office-Building-01.jpg' }
 };
