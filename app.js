@@ -234,12 +234,12 @@ function renderMap() {
         <text x="40" y="200">放水路</text>
         <text x="80" y="200">天滿川</text>
         <text x="115" y="190">本川</text>
-        <text x="178" y="240">元安川</text>
+        <text x="182" y="262">元安川</text>
         <text x="286" y="200">京橋川</text>
         <text x="306" y="250">猿猴川</text>
       </g>
       <text x="318" y="40" class="map-label">✈ 廣島機場</text>
-      <text x="198" y="275" class="map-label">廣島市</text>
+      <text x="228" y="288" class="map-label">廣島市</text>
       <text x="40" y="400" class="map-label">宮島</text>
       <text x="335" y="315" class="map-label">吳市</text>
       <text x="230" y="480" class="map-label sea-label">瀨戶內海</text>
