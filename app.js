@@ -134,6 +134,14 @@ function checkBadges() {
   });
 }
 
+// Google 地圖連結：search 看位置，dir 從目前位置用大眾運輸導航
+function mapUrl(type, q) {
+  const query = encodeURIComponent(q);
+  return type === 'dir'
+    ? `https://www.google.com/maps/dir/?api=1&destination=${query}&travelmode=transit`
+    : `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
+
 // 所有地點一開始就開放，行程順序改變時可以直接跳到任何地點
 function nodeStatus(n) {
   return state.completed[n.id] ? 'done' : 'open';
@@ -304,6 +312,12 @@ function renderNode(n) {
   <section class="card">
     <h2>🚃 怎麼去</h2>
     <p>${esc(n.howto)}</p>
+    <div class="map-links">${n.maps.map(m => `<div class="map-link">
+      <b>📍 ${esc(m.label)}</b>
+      <a class="btn ghost small" href="${mapUrl('search', m.q)}" target="_blank" rel="noopener">看位置</a>
+      <a class="btn small" href="${mapUrl('dir', m.q)}" target="_blank" rel="noopener">🧭 導航</a>
+    </div>`).join('')}</div>
+    <p class="muted small">「導航」會從你現在的位置，用大眾運輸規劃路線，會開啟 Google 地圖。</p>
   </section>
 
   <details class="card parents-note">

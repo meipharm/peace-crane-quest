@@ -157,6 +157,9 @@ textarea {
   width: 100%; font: inherit; padding: 10px; border-radius: 10px;
   border: 2px solid var(--line); background: #fff; margin-bottom: 10px; resize: vertical;
 }
+.map-links { display: grid; gap: 8px; margin: 10px 0; }
+.map-link { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: #fff; border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; }
+.map-link b { flex: 1 1 120px; }
 details summary { cursor: pointer; font-weight: 700; }
 details[open] summary { margin-bottom: 8px; }
 
