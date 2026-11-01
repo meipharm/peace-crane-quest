@@ -9,7 +9,7 @@ function freshState() {
   return {
     cranes: 0, earned: 0, completed: {}, best: {},
     helpers: [], missions: {}, talks: {}, notes: {}, badges: [],
-    timelineDone: false, checklist: {}
+    timelineDone: false, checklist: {}, food: {}
   };
 }
 
@@ -164,6 +164,7 @@ function route() {
   else if (view === 'timeline') { if (!timeline) startTimeline(); renderTimeline(); }
   else if (view === 'collection') renderCollection();
   else if (view === 'parents') renderParents();
+  else if (view === 'food') renderFood();
   else renderHome();
   window.scrollTo(0, 0);
 }
@@ -185,6 +186,7 @@ function renderHome() {
       <li><b>收集鶴寶</b>：每完成一個地點，就有一隻新的鶴寶加入小隊。</li>
       <li><b>鶴寶提示</b>：每隻鶴寶在答題時可以幫你刪掉一個錯的答案。</li>
       <li><b>真實任務</b>：到了現場完成任務、和爸媽聊天，還能再得紙鶴。</li>
+      <li><b>美食收集</b>：在「美食」頁打勾吃過的料理、買到的伴手禮，也能得紙鶴。</li>
     </ol>
     <div class="row">
       <a class="btn big" href="#/map">出發！打開地圖</a>
@@ -375,8 +377,16 @@ function photoFigure(p) {
   if (!p) return '';
   return `<figure class="photo">
     <img src="${esc(p.src)}" alt="${esc(p.caption)}" loading="lazy">
-    <figcaption>${esc(p.caption)}<br><small>照片：<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.author)}</a>／<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>，經縮圖</small></figcaption>
+    <figcaption>${esc(p.caption)}<br><small>${photoCredit(p)}</small></figcaption>
   </figure>`;
+}
+
+// 照片的作者與授權（公眾領域沒有授權網址就不加連結）
+function photoCredit(p) {
+  const license = p.licenseUrl
+    ? `<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>`
+    : esc(p.license);
+  return `照片：<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.author)}</a>／${license}，經縮圖`;
 }
 
 // 開放時間（每個場館一張小卡，手機不用左右捲動）
@@ -638,6 +648,62 @@ function renderCollection() {
   });
 }
 
+// ===== 美食與伴手禮 =====
+function renderFood() {
+  const card = f => {
+    const p = f.photo ? FOOD_PHOTOS[f.photo] : null;
+    const done = !!state.food[f.id];
+    const doneText = f.type === 'eat' ? '我吃過了' : '我買到了';
+    return `<article class="food-card ${done ? 'done' : ''}">
+      ${p
+        ? `<figure class="food-photo"><img src="${esc(p.src)}" alt="${esc(p.caption)}" loading="lazy"><figcaption><small>${photoCredit(p)}</small></figcaption></figure>`
+        : `<div class="food-emoji" aria-hidden="true">${f.emoji}</div>`}
+      <div class="food-body">
+        <h3>${esc(f.name)} <span class="jp">${esc(f.jp)}</span></h3>
+        <p class="food-where">📍 ${esc(f.when)}｜${esc(f.where)}</p>
+        <p>${esc(f.desc)}</p>
+        <p class="tip">💡 ${esc(f.tip)}</p>
+        <div class="row">
+          <button class="btn ghost small" data-show="${f.id}">🗣️ 給店員看</button>
+          <button class="btn small ${done ? 'ghost' : ''}" data-food="${f.id}" ${done ? 'disabled' : ''}>${done ? doneText + ' ✓' : doneText + '！ +1 🦢'}</button>
+        </div>
+      </div>
+    </article>`;
+  };
+  const refs = [...new Set(FOOD.flatMap(f => f.refs))];
+  const count = Object.keys(state.food).length;
+
+  app.innerHTML = `
+  <section class="card">
+    <h1>🍡 美食與伴手禮</h1>
+    <p>廣島有好多好吃的！吃過或買到一樣，就打勾得 1 隻紙鶴。收集 5 樣可以拿到「美食探險家」徽章。（已收集 ${count} / ${FOOD.length}）</p>
+    <p class="muted small">不會日語也沒關係：按「給店員看」，把手機上的日文拿給店員看就可以了。</p>
+  </section>
+
+  <h2 class="section-title">🍽️ 一定要嚐嚐</h2>
+  <div class="food-grid">${FOOD.filter(f => f.type === 'eat').map(card).join('')}</div>
+
+  <h2 class="section-title">🎁 必買伴手禮</h2>
+  <div class="food-grid">${FOOD.filter(f => f.type === 'buy').map(card).join('')}</div>
+
+  <details class="card refs">
+    <summary>📚 參考資料（${refs.length}）</summary>
+    <ol>${refs.map(r => sourceItem(SOURCES[r])).join('')}</ol>
+  </details>`;
+
+  app.querySelectorAll('[data-food]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.food;
+    if (state.food[id]) return;
+    state.food[id] = true;
+    addCranes(1);
+    renderFood();
+  }));
+  app.querySelectorAll('[data-show]').forEach(b => b.addEventListener('click', () => {
+    const f = FOOD.find(x => x.id === b.dataset.show);
+    modal(`<p class="jp-big">${esc(f.jp)}</p><p class="jp-please">これをください。</p><p class="muted small">（${esc(f.name)}：請給我這個）</p>`, '好了', null, null);
+  }));
+}
+
 // ===== 爸媽手冊 =====
 function renderParents() {
   const days = PARENT_DAYS.map(d => {
@@ -712,8 +778,8 @@ function renderParents() {
   </details>
 
   <details class="card refs">
-    <summary>📷 照片來源（${Object.keys(PHOTOS).length} 張，CC 授權）</summary>
-    <ol>${Object.values(PHOTOS).map(p => `<li>${esc(p.caption)}<br><small>作者：<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.author)}</a>｜授權：<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>｜來源：Wikimedia Commons，經縮圖</small></li>`).join('')}</ol>
+    <summary>📷 照片來源（${Object.keys(PHOTOS).length + Object.keys(FOOD_PHOTOS).length} 張，CC 授權或公眾領域）</summary>
+    <ol>${[...Object.values(PHOTOS), ...Object.values(FOOD_PHOTOS)].map(p => `<li>${esc(p.caption)}<br><small>${photoCredit(p)}｜來源：Wikimedia Commons</small></li>`).join('')}</ol>
   </details>
 
   <p class="muted small disclaimer">傷亡人數、少年工人數等為常見概略數字，各資料略有差異；交通時間與價格為估計值。出發前請以各展館、交通公司官網為準。</p>`;

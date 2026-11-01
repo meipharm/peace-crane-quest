@@ -342,6 +342,7 @@ const BADGES = [
   { id: 'talk', icon: '💬', name: '好好聊天王', test: s => Object.keys(s.talks).length >= 5 },
   { id: 'mission', icon: '📸', name: '任務達人', test: s => Object.keys(s.missions).length >= NODES.length },
   { id: 'cranes', icon: '🦢', name: '百鶴收藏家', test: s => s.earned >= 100 },
+  { id: 'foodie', icon: '🍡', name: '美食探險家', test: s => Object.keys(s.food || {}).length >= 5 },
   { id: 'all', icon: '🏆', name: '和平紙鶴大使', test: s => NODES.every(n => s.completed[n.id]) }
 ];
 
@@ -402,7 +403,7 @@ const PARENT_DAYS = [
   ], tip: '⚠️ 大和博物館和鐵鯨館每週二休館，這天不要排在星期二。這是孩子最開心的一天，也是台灣連結最多的一天。' },
   { day: 5, title: '返程：整理這趟旅程', rows: [
     ['10:00', '退房，行李寄放飯店櫃檯', ''],
-    ['10:30', '廣島車站買伴手禮', '楓葉饅頭、廣島燒醬、檸檬零食'],
+    ['10:30', '廣島車站買伴手禮', '楓葉饅頭、御好燒醬、檸檬點心（見「美食」頁）'],
     ['起飛前 3 小時', '往機場', '機場巴士約 50 分鐘']
   ], tip: '在機場或飛機上聊三個總結問題，並完成「回家」關卡。' }
 ];
@@ -524,6 +525,17 @@ const SOURCES = {
   yamatoHours: { title: 'ご利用について（開館日時・料金等）', by: '大和博物館官方網站', url: 'https://yamato-museum.com/%E6%9D%A5%E9%A4%A8%E6%A1%88%E5%86%85/%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/', note: '開館時間、週二休館、觀覽料' },
   tetsuInfo: { title: '海上自衛隊呉史料館 愛称「てつのくじら館」', by: 'インターネットミュージアム（日本博物館協會相關網站）', url: 'https://www.museum.or.jp/museum/14360', note: '開館時間、週二休館、免費；官網為 jmsdf-kure-museum.go.jp' },
   kodomoClosure: { title: 'いろいろなしせつ　こども文化科学館', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/soshiki/46/11502.html', note: '2027 年 4 月 1 日起整修休館' },
+  okonomiGuide: { title: '広島お好み焼き', by: 'JEEPE 旅遊介紹', url: 'https://www.jeepe.jp/ja/articles/hiroshima-okonomiyaki-1431', note: '廣島風疊層煎法、肉玉そば' },
+  oysterWiki: { title: '広島かき', by: 'Wikipedia（日文）', url: 'https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E3%81%8B%E3%81%8D', note: '廣島牡蠣產量日本第一' },
+  anagoGuide: { title: 'あなごめし うえの 宮島口本店', by: 'GOOD LUCK TRIP', url: 'https://www.gltjp.com/ja/directory/item/14838/', note: '1901 年創業的星鰻飯老店' },
+  agemomijiGuide: { title: '宮島のご当地グルメ6選', by: 'なっぷ', url: 'https://www.nap-camp.com/mag/21887', note: '紅葉堂的炸楓葉饅頭' },
+  curryGuide: { title: '呉の海自カレーおすすめの店はここ！', by: 'まっぷるウェブ', url: 'https://www.mapple.net/article/64696/', note: '海上自衛隊星期五吃咖哩、各艦食譜' },
+  momijiWiki: { title: 'もみじ饅頭', by: 'Wikipedia（日文）', url: 'https://ja.wikipedia.org/wiki/%E3%82%82%E3%81%BF%E3%81%98%E9%A5%85%E9%A0%AD', note: '1906 年在宮島誕生' },
+  momijiCity: { title: 'もみじ饅頭（こしあん）【やまだ屋】', by: '廣島市官方網站（廣島品牌）', url: 'https://www.city.hiroshima.lg.jp/hiroshimabrand/hiroshima-brand/131702.html', note: '廣島市認定的特產' },
+  lemonPref: { title: '瀬戸内 広島レモンとは', by: '廣島縣官方網站', url: 'https://www.pref.hiroshima.lg.jp/site/kazyuyasaikaki/setoushihiroshimalemon.html', note: '檸檬產量日本第一、約占全國一半' },
+  otafuku: { title: 'ニュースリリース（2018 年 8 月 20 日）', by: 'Otafuku（オタフクソース）', url: 'https://www.otafuku.co.jp/news/assets/20180820.pdf', note: '總公司在廣島市' },
+  shamojiWiki: { title: '宮島細工', by: 'Wikipedia（日文）', url: 'https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B3%B6%E7%B4%B0%E5%B7%A5', note: '僧人誓真與宮島飯杓' },
+  fudePref: { title: '熊野筆（くまのふで）', by: '廣島縣官方網站', url: 'https://www.pref.hiroshima.lg.jp/soshiki/78/1170644429694.html', note: '1975 年指定為傳統工藝品' },
   zuoying: { title: 'Zuoying Naval Base', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Zuoying_Naval_Base', note: '左營軍港' }
 };
 
@@ -537,4 +549,30 @@ const PHOTOS = {
   kure: { src: 'images/kure.jpg', caption: '大和博物館的 1/10 戰艦大和號模型', author: '宮本すぐる', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0', source: 'https://commons.wikimedia.org/wiki/File:1-10_Battleship_Yamato.jpg' },
   tetsu: { src: 'images/tetsu.jpg', caption: '鐵鯨館外的秋潮號潛水艇', author: 'Taisyo', license: 'CC BY-SA 3.0', licenseUrl: 'http://creativecommons.org/licenses/by-sa/3.0/', source: 'https://commons.wikimedia.org/wiki/File:JMSDF_AKISHIO.JPG' },
   home: { src: 'images/home.jpg', caption: '台北的總統府，日治時期是台灣總督府', author: 'CEphoto, Uwe Aranas', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0', source: 'https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Presidential-Office-Building-01.jpg' }
+};
+
+// ===== 美食與伴手禮：type eat＝要嚐試的料理、buy＝伴手禮；jp 給店員看 =====
+const FOOD = [
+  { id: 'okonomiyaki', type: 'eat', name: '廣島燒', jp: 'お好み焼き（肉玉そば）', when: 'D1 晚餐', where: '御好燒村、廣島車站', desc: '把麵糊、高麗菜、豆芽、豬肉和麵一層一層疊起來煎，不是全部混在一起，這就是廣島風。最基本的是「肉玉そば」：豬肉＋蛋＋麵。', tip: '坐在鐵板前看老闆一層層疊起來，很好玩！有小麥和蛋，會過敏要注意。', photo: 'okonomiyaki', refs: ['okonomiGuide'] },
+  { id: 'oyster', type: 'eat', name: '烤牡蠣', jp: '焼きがき', when: 'D3 宮島', where: '宮島表參道商店街', desc: '廣島的牡蠣產量是日本第一。宮島街上有現烤的牡蠣，熱呼呼地吃。', tip: '孩子吃完全烤熟的，或炸牡蠣（カキフライ）比較安心。4 月是產季尾聲。', photo: 'oyster', refs: ['oysterWiki'] },
+  { id: 'anago', type: 'eat', name: '星鰻飯', jp: 'あなごめし', when: 'D3 宮島', where: '宮島口「うえの」等店', desc: '把烤過的星鰻鋪在用醬汁煮的飯上。宮島口的老店「うえの」從 1901 年就開始賣了。', tip: '很熱門常要排隊，可以早點去，或買便當帶著吃。', photo: 'anago', refs: ['anagoGuide'] },
+  { id: 'agemomiji', type: 'eat', name: '炸楓葉饅頭', jp: '揚げもみじ', when: 'D3 宮島', where: '宮島「紅葉堂」', desc: '把楓葉饅頭裹上麵衣去炸，外面酥酥、裡面軟軟，插在竹籤上可以邊走邊吃。', tip: '剛炸好很燙，吹一吹再咬！', photo: 'agemomiji', refs: ['agemomijiGuide'] },
+  { id: 'curry', type: 'eat', name: '吳海自咖哩', jp: '呉海自カレー', when: 'D4 吳市', where: '吳市內的認證餐廳', desc: '海上自衛隊的船上每個星期五午餐吃咖哩，讓在海上很久的隊員記得今天星期幾。吳市的餐廳照各艘船的食譜做，每家味道都不一樣。', tip: '問問店員這是哪一艘船的咖哩，收集看看！', emoji: '🍛', refs: ['curryGuide'] },
+  { id: 'momiji', type: 'buy', name: '楓葉饅頭', jp: 'もみじ饅頭', when: '宮島、廣島車站', where: '宮島表參道、廣島車站伴手禮區', desc: '楓葉形狀的小蛋糕，1906 年在宮島誕生。除了紅豆，還有卡士達、巧克力、起司等口味。', tip: '一個一個分開包裝，很適合分送給同學。', photo: 'momiji', refs: ['momijiWiki', 'momijiCity'] },
+  { id: 'lemon', type: 'buy', name: '廣島檸檬點心', jp: '広島レモン', when: '廣島車站', where: '廣島車站伴手禮區', desc: '廣島的檸檬產量是日本第一，大約占全國一半。有檸檬蛋糕、檸檬糖和各種檸檬口味零食。', tip: '酸酸甜甜，大人小孩都喜歡。', emoji: '🍋', refs: ['lemonPref'] },
+  { id: 'sauce', type: 'buy', name: '御好燒醬', jp: 'お好みソース', when: '超市、廣島車站', where: '超市、廣島車站', desc: '吃廣島燒一定會用到的甜甜濃濃的醬，例如總公司在廣島市的 Otafuku（オタフク）。', tip: '回家可以自己做廣島燒！放托運行李要包好，避免漏出來。', photo: 'sauce', refs: ['otafuku', 'okonomiGuide'] },
+  { id: 'shamoji', type: 'buy', name: '宮島飯杓', jp: '宮島杓子（しゃもじ）', when: 'D3 宮島', where: '宮島表參道商店街', desc: '相傳江戶時代末期，宮島的僧人誓真發明了飯杓，教島上的人製作。現在宮島的飯杓產量是日本第一。', tip: '木頭做的，輕巧不怕摔，很適合當紀念品。', photo: 'shamoji', refs: ['shamojiWiki'] },
+  { id: 'fude', type: 'buy', name: '熊野筆', jp: '熊野筆', when: '廣島車站、百貨公司', where: '廣島車站、百貨公司', desc: '廣島縣熊野町做的毛筆、畫筆和化妝筆，1975 年被指定為日本的傳統工藝品。', tip: '送給喜歡畫畫或寫書法的人很適合。', photo: 'fude', refs: ['fudePref'] }
+];
+
+// 美食照片：Wikimedia Commons 的 CC 授權或公眾領域圖片（縮圖 720px）
+const FOOD_PHOTOS = {
+  okonomiyaki: { src: 'images/food/okonomiyaki.jpg', caption: '廣島風御好燒', author: 'EllieBellie25', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Prepared_okonomiyaki_in_Hiroshima.jpg' },
+  oyster: { src: 'images/food/oyster.jpg', caption: '宮島的烤牡蠣', author: 'Daderot', license: 'Public domain', licenseUrl: '', source: 'https://commons.wikimedia.org/wiki/File:Grilled_oysters_Food_in_Miyajima_-_DSC02189.JPG' },
+  anago: { src: 'images/food/anago.jpg', caption: '星鰻飯', author: 'ノボホショコロトソ', license: 'CC BY 4.0', licenseUrl: 'https://creativecommons.org/licenses/by/4.0', source: 'https://commons.wikimedia.org/wiki/File:Anago-meshi_%E3%81%82%E3%81%AA%E3%81%94%E3%82%81%E3%81%97.jpg' },
+  agemomiji: { src: 'images/food/agemomiji.jpg', caption: '炸楓葉饅頭', author: 'さえぼー', license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0', source: 'https://commons.wikimedia.org/wiki/File:Agemomiji_(cropped).jpg' },
+  momiji: { src: 'images/food/momiji.jpg', caption: '楓葉饅頭', author: 'Ocdp', license: 'CC0', licenseUrl: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en', source: 'https://commons.wikimedia.org/wiki/File:Momiji_manj%C5%AB_001.jpg' },
+  sauce: { src: 'images/food/sauce.jpg', caption: '御好燒醬', author: 'Shigeru-a24', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0', source: 'https://commons.wikimedia.org/wiki/File:%E3%82%AA%E3%82%BF%E3%83%95%E3%82%AF%E3%82%BD%E3%83%BC%E3%82%B9_%E3%81%8A%E5%A5%BD%E3%81%BF%E3%82%BD%E3%83%BC%E3%82%B9_%E5%B8%82%E8%B2%A9.jpg' },
+  shamoji: { src: 'images/food/shamoji.jpg', caption: '宮島的飯杓', author: 'Daderot', license: 'CC0', licenseUrl: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en', source: 'https://commons.wikimedia.org/wiki/File:Rice_paddles,_Miyajima_-_DSC02143.JPG' },
+  fude: { src: 'images/food/fude.jpg', caption: '熊野筆（筆之里工房展示的大毛筆）', author: 'Nobuyuki Kondo', license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0', source: 'https://commons.wikimedia.org/wiki/File:%E7%86%8A%E9%87%8E%E7%AD%86_%E4%BC%9D%E7%B5%B1%E5%B7%A5%E8%8A%B8%E5%A3%AB_%E4%B8%89%E6%85%AE_%E4%BD%9C_(9894801595).jpg' }
 };
