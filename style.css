@@ -117,9 +117,6 @@ a { color: var(--blue); }
 .node.open .node-bg { fill: #fff3c4; stroke: var(--gold); stroke-width: 4; }
 .node.open { animation: pulse 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 .node.done .node-bg { fill: #ffe1e1; stroke: var(--red); }
-.node.ready .node-bg { fill: #eef7ff; stroke: var(--blue); stroke-dasharray: 5 3; }
-.node.locked .node-bg { fill: #ddd6c8; stroke: #9c9382; }
-.node.locked .node-icon { opacity: .35; }
 .node:focus-visible .node-bg { stroke-width: 5; }
 .node-icon { font-size: 22px; }
 .node-label {
@@ -128,10 +125,6 @@ a { color: var(--blue); }
 }
 .flag circle { fill: var(--red); }
 .flag text { fill: #fff; font-size: 12px; font-weight: 900; }
-.lock circle { fill: #fff; stroke: #9c9382; }
-.lock text { font-size: 10px; }
-.cost rect { fill: var(--blue); }
-.cost text { fill: #fff; font-size: 11px; font-weight: 700; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .75; } }
 
 .squad { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; min-height: 40px; }
@@ -146,8 +139,6 @@ a { color: var(--blue); }
 .ni-status { margin-left: auto; font-size: .8rem; white-space: nowrap; font-weight: 700; }
 .node-item.done .ni-status { color: var(--red); }
 .node-item.open .ni-status { color: #b07d00; }
-.node-item.ready .ni-status { color: var(--blue); }
-.node-item.locked { opacity: .65; }
 
 /* 地點頁 */
 .node-head { display: flex; gap: 14px; align-items: center; margin-top: 6px; }

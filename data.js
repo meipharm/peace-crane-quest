@@ -1,9 +1,10 @@
 // 和平紙鶴大冒險：所有內容資料（行程、交通、歷史講解、台灣連結、問答）
 // 數字為常見概略值，出發前請以各展館與交通公司官網為準。
 
+// route：建議路線的上一站，只用來在地圖上畫連線，不會鎖住關卡
 const NODES = [
   {
-    id: 'castle', day: 1, name: '廣島城', icon: '🏯', x: 205, y: 120, cost: 0, requires: [],
+    id: 'castle', day: 1, name: '廣島城', icon: '🏯', x: 205, y: 120, route: [],
     helper: 'gold',
     tagline: '台灣命運的起點',
     story: '130 年前，日本和清朝打仗，日本天皇和指揮中心「大本營」就搬到這座城。那場仗打完，台灣就變成日本的了。所以台灣被日本統治 50 年，就是從這座城的那場戰爭開始的。後來原子彈把這座城也炸毀了，現在看到的是戰後重建的。',
@@ -31,7 +32,7 @@ const NODES = [
     ]
   },
   {
-    id: 'shukkeien', day: 1, name: '縮景園', icon: '🌳', x: 290, y: 150, cost: 3, requires: ['castle'],
+    id: 'shukkeien', day: 1, name: '縮景園', icon: '🌳', x: 290, y: 150, route: ['castle'],
     helper: 'green',
     tagline: '美麗庭園的另一面',
     story: '這是 400 年前蓋的漂亮庭園。原子彈爆炸那天，很多受傷的人逃到這裡找水喝、躲大火，有很多人就在這裡過世了。現在的庭園是戰後重新整修的。',
@@ -56,7 +57,7 @@ const NODES = [
     ]
   },
   {
-    id: 'peace', day: 2, name: '原爆之子像與資料館', icon: '🕊️', x: 175, y: 245, cost: 5, requires: ['shukkeien'],
+    id: 'peace', day: 2, name: '原爆之子像與資料館', icon: '🕊️', x: 175, y: 245, route: ['shukkeien'],
     helper: 'white',
     tagline: '禎子與一千隻紙鶴',
     story: '1945 年 8 月 6 日早上 8 點 15 分，一顆原子彈在廣島上空爆炸，幾乎整座城市都毀了。那一年就有大約 14 萬人死亡。佐佐木禎子當時 2 歲，看起來沒受傷，但 12 歲時得了白血病。她聽說摺一千隻紙鶴就能實現願望，就在病床上一直摺，可惜最後還是過世了。她的同學募款蓋了「原爆之子像」，現在全世界的小朋友都會寄紙鶴來這裡。',
@@ -87,7 +88,7 @@ const NODES = [
     ]
   },
   {
-    id: 'dome', day: 2, name: '原爆圓頂館與折紙鶴塔', icon: '🏛️', x: 120, y: 190, cost: 4, requires: ['peace'],
+    id: 'dome', day: 2, name: '原爆圓頂館與折紙鶴塔', icon: '🏛️', x: 120, y: 190, route: ['peace'],
     helper: 'red',
     tagline: '留下來的提醒',
     story: '這棟建築離爆炸中心很近，卻沒有完全倒下。廣島人決定不拆掉它，就讓它保持這個樣子，提醒全世界不要再發生這種事。旁邊的折紙鶴塔可以爬上頂樓看整個廣島，還可以摺一隻紙鶴，從高處丟進紙鶴牆。',
@@ -113,7 +114,7 @@ const NODES = [
     ]
   },
   {
-    id: 'miyajima', day: 3, name: '宮島・嚴島神社', icon: '⛩️', x: 70, y: 345, cost: 6, requires: ['dome'],
+    id: 'miyajima', day: 3, name: '宮島・嚴島神社', icon: '⛩️', x: 70, y: 345, route: ['dome'],
     helper: 'pink',
     tagline: '神社與「皇民化運動」',
     story: '這是日本人拜拜的地方，叫做「神社」。日本統治台灣的時候，在台灣蓋了兩百多座神社。戰爭開始以後，日本政府要求台灣人改日本名字、說日本話、去神社參拜，想把台灣人變成「日本人」，這叫做「皇民化運動」。',
@@ -145,7 +146,7 @@ const NODES = [
     ]
   },
   {
-    id: 'kure', day: 4, name: '吳市・大和博物館', icon: '⚓', x: 300, y: 360, cost: 6, requires: ['dome'],
+    id: 'kure', day: 4, name: '吳市・大和博物館', icon: '⚓', x: 300, y: 360, route: ['miyajima'],
     helper: 'blue',
     tagline: '戰艦大和號與台灣少年工',
     story: '大和號是當時世界上最大的戰艦，就是在吳市這裡祕密建造的。1945 年 4 月 7 日，它出發去沖繩作戰，在海上被美國飛機擊沉，船上大約 3 千人死亡。博物館裡有 1/10 大小的大和號模型，真的超級大！',
@@ -177,7 +178,7 @@ const NODES = [
     ]
   },
   {
-    id: 'tetsu', day: 4, name: '鐵鯨館（潛水艇）', icon: '🐋', x: 345, y: 425, cost: 4, requires: ['kure'],
+    id: 'tetsu', day: 4, name: '鐵鯨館（潛水艇）', icon: '🐋', x: 345, y: 425, route: ['kure'],
     helper: 'black',
     tagline: '戰後的日本',
     story: '戰爭結束後，日本寫了一部新憲法，說「日本不再發動戰爭」。所以現在日本沒有「軍隊」，只有「自衛隊」，意思是只能保護自己。這艘潛水艇就是戰後自衛隊用的，可以走進去參觀，而且免費！',
@@ -205,7 +206,7 @@ const NODES = [
     ]
   },
   {
-    id: 'home', day: 5, name: '回家・台灣基地', icon: '🏠', x: 95, y: 500, cost: 8, requires: ['miyajima', 'tetsu'],
+    id: 'home', day: 5, name: '回家・台灣基地', icon: '🏠', x: 95, y: 500, route: ['tetsu'],
     helper: 'rainbow',
     tagline: '整理這趟旅程',
     story: '旅程要結束了！我們從甲午戰爭的廣島城開始，看了原爆、神社、戰艦和潛水艇，也知道了台灣在戰爭裡發生的事。最後一關，來整理你學到的東西吧！',

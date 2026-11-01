@@ -7,7 +7,7 @@ const HELPER_ORDER = NODES.map(n => n.helper);
 
 function freshState() {
   return {
-    cranes: 0, earned: 0, unlocked: ['castle'], completed: {}, best: {},
+    cranes: 0, earned: 0, completed: {}, best: {},
     helpers: [], missions: {}, talks: {}, notes: {}, badges: [],
     timelineDone: false, checklist: {}
   };
@@ -134,11 +134,9 @@ function checkBadges() {
   });
 }
 
+// 所有地點一開始就開放，行程順序改變時可以直接跳到任何地點
 function nodeStatus(n) {
-  if (state.completed[n.id]) return 'done';
-  if (state.unlocked.includes(n.id)) return 'open';
-  if (n.requires.every(r => state.completed[r])) return 'ready';
-  return 'locked';
+  return state.completed[n.id] ? 'done' : 'open';
 }
 
 function go(hash) { location.hash = hash; }
@@ -151,10 +149,6 @@ function route() {
   document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('active', a.dataset.view === view));
 
   if ((view === 'node' || view === 'quiz') && !NODE_MAP[id]) return go('#/map');
-  if ((view === 'node' || view === 'quiz') && ['ready', 'locked'].includes(nodeStatus(NODE_MAP[id]))) {
-    toast('這個地點還沒解鎖，先回地圖看看吧！');
-    return go('#/map');
-  }
 
   if (view === 'map') renderMap();
   else if (view === 'node') renderNode(NODE_MAP[id]);
@@ -179,7 +173,7 @@ function renderHome() {
     <h2>怎麼玩</h2>
     <ol class="howto">
       <li><b>回答問題</b>：第一次就答對得 3 隻紙鶴 🦢，第二次 2 隻，之後 1 隻。</li>
-      <li><b>解鎖地點</b>：用紙鶴打開地圖上的新地點。要先去哪裡，由你決定！</li>
+      <li><b>自由探索</b>：地圖上每個地點都已經開放，到了哪裡就玩哪一關！</li>
       <li><b>收集鶴寶</b>：每完成一個地點，就有一隻新的鶴寶加入小隊。</li>
       <li><b>鶴寶提示</b>：每隻鶴寶在答題時可以幫你刪掉一個錯的答案。</li>
       <li><b>真實任務</b>：到了現場完成任務、和爸媽聊天，還能再得紙鶴。</li>
@@ -194,7 +188,7 @@ function renderHome() {
 // ===== 地圖 =====
 function renderMap() {
   const edges = [];
-  NODES.forEach(n => n.requires.forEach(r => {
+  NODES.forEach(n => n.route.forEach(r => {
     const a = NODE_MAP[r];
     const done = state.completed[r] && state.completed[n.id];
     edges.push(`<line x1="${a.x}" y1="${a.y}" x2="${n.x}" y2="${n.y}" class="edge ${done ? 'done' : ''}"/>`);
@@ -202,10 +196,7 @@ function renderMap() {
 
   const nodes = NODES.map(n => {
     const st = nodeStatus(n);
-    let badge = '';
-    if (st === 'done') badge = `<g class="flag"><circle cx="18" cy="-18" r="9"/><text x="18" y="-14" text-anchor="middle">✓</text></g>`;
-    else if (st === 'ready') badge = `<g class="cost"><rect x="2" y="-30" width="34" height="18" rx="9"/><text x="19" y="-17" text-anchor="middle">🦢${n.cost}</text></g>`;
-    else if (st === 'locked') badge = `<g class="lock"><circle cx="18" cy="-18" r="9"/><text x="18" y="-14" text-anchor="middle">🔒</text></g>`;
+    const badge = st === 'done' ? `<g class="flag"><circle cx="18" cy="-18" r="9"/><text x="18" y="-14" text-anchor="middle">✓</text></g>` : '';
     return `<g class="node ${st}" transform="translate(${n.x},${n.y})" data-id="${n.id}" role="button" tabindex="0" aria-label="${esc(n.name)}">
       <circle r="24" class="node-bg"/>
       <text class="node-icon" text-anchor="middle" y="8">${n.icon}</text>
@@ -242,14 +233,14 @@ function renderMap() {
   <section class="card">
     <h2>你的鶴寶小隊</h2>
     <div class="squad">${squad}</div>
-    <p class="muted small">提示：🦢 數字是解鎖需要的紙鶴；🔒 要先完成前一個地點。紙鶴不夠時，可以回到完成的地點複習，再賺紙鶴。</p>
+    <p class="muted small">提示：所有地點都可以直接點進去，照你們實際的行程順序玩就好。虛線是建議路線，完成後會變成紅色。</p>
   </section>
   <section class="card">
     <h2>地點清單</h2>
     <ul class="node-list">
       ${NODES.map(n => {
         const st = nodeStatus(n);
-        const label = { done: '已完成 ✓', open: '已解鎖', ready: `解鎖需 🦢${n.cost}`, locked: '🔒 未開放' }[st];
+        const label = st === 'done' ? '已完成 ✓' : '開始探索 →';
         return `<li><button class="node-item ${st}" data-id="${n.id}"><span class="ni-icon">${n.icon}</span><span><b>D${n.day}｜${esc(n.name)}</b><br><small>${esc(n.tagline)}</small></span><span class="ni-status">${label}</span></button></li>`;
       }).join('')}
     </ul>
@@ -262,25 +253,7 @@ function renderMap() {
 }
 
 function onNodeTap(id) {
-  const n = NODE_MAP[id];
-  const st = nodeStatus(n);
-  if (st === 'done' || st === 'open') return go('#/node/' + id);
-  if (st === 'locked') {
-    const need = n.requires.filter(r => !state.completed[r]).map(r => `「${NODE_MAP[r].name}」`).join('和');
-    return toast(`要先完成${need}喔！`);
-  }
-  if (state.cranes < n.cost) {
-    return toast(`還差 ${n.cost - state.cranes} 隻紙鶴！回到完成的地點複習可以再賺。`);
-  }
-  modal(`<div class="modal-icon">${n.icon}</div><h3>解鎖「${esc(n.name)}」？</h3><p>要花 🦢 ${n.cost} 隻紙鶴（你有 ${state.cranes} 隻）。</p>`,
-    '解鎖！', () => {
-      state.cranes -= n.cost;
-      state.unlocked.push(n.id);
-      saveState();
-      updateHud();
-      confetti();
-      go('#/node/' + id);
-    });
+  go('#/node/' + id);
 }
 
 // ===== 地點頁 =====
