@@ -323,6 +323,11 @@ function renderNode(n) {
   <details class="card parents-note">
     <summary>👨‍👩‍👦 爸媽補充（點開看）</summary>
     <ul>${n.parents.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+  </details>
+
+  <details class="card refs">
+    <summary>📚 參考資料（${n.refs.length}）</summary>
+    <ol>${n.refs.map(r => sourceItem(SOURCES[r])).join('')}</ol>
   </details>`;
 
   const note = document.getElementById('talk-note');
@@ -341,6 +346,14 @@ function renderNode(n) {
     addCranes(1);
     renderNode(n);
   });
+}
+
+// 參考資料的一筆：有網址就開新分頁
+function sourceItem(s) {
+  const title = s.url
+    ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`
+    : esc(s.title);
+  return `<li>${title}<br><small>${esc(s.by)}｜${esc(s.note)}</small></li>`;
 }
 
 // ===== 問答 =====
@@ -642,6 +655,11 @@ function renderParents() {
     <h2>行前總檢查清單</h2>
     <ul class="checklist">${checklist}</ul>
   </section>
+
+  <details class="card refs">
+    <summary>📚 參考資料（全部 ${Object.keys(SOURCES).length} 筆）</summary>
+    <ol>${Object.values(SOURCES).map(sourceItem).join('')}</ol>
+  </details>
 
   <p class="muted small disclaimer">傷亡人數、少年工人數等為常見概略數字，各資料略有差異；交通時間與價格為估計值。出發前請以各展館、交通公司官網為準。</p>`;
 

@@ -3,6 +3,7 @@
 
 // route：建議路線的上一站，只用來在地圖上畫連線，不會鎖住關卡
 // maps：Google 地圖連結；q 用日文地名，搜尋比較準確
+// refs：參考資料，對應下方 SOURCES 的代號
 const NODES = [
   {
     id: 'castle', day: 1, name: '廣島城', icon: '🏯', x: 205, y: 120, route: [],
@@ -19,6 +20,7 @@ const NODES = [
     mission: '在城內找到「大本營遺跡」的基石，和它拍一張照。',
     howto: '從縮景園步行約 15 分鐘；從廣島車站搭計程車約 10 分鐘。',
     maps: [{ label: '廣島城', q: '広島城' }],
+    refs: ['daihonei', 'rijo', 'shimonoseki'],
     quiz: [
       { q: '130 年前，日本和清朝打的那場仗叫什麼？', options: ['甲午戰爭', '珍珠港事件', '鴉片戰爭', '沖繩戰'],
         explain: '1894 年開始的甲午戰爭，日本打贏了清朝。' },
@@ -48,6 +50,7 @@ const NODES = [
     mission: '在園裡找找看有沒有「被爆樹木」的說明牌：經歷過原爆還活下來的樹。',
     howto: '從廣島車站步行約 15 分鐘，或搭計程車。',
     maps: [{ label: '縮景園', q: '縮景園 広島' }],
+    refs: ['shukkeien', 'hiroshimaCity'],
     quiz: [
       { q: '縮景園大約是多久以前蓋的？', options: ['大約 400 年前', '大約 40 年前', '大約 4000 年前', '去年'],
         explain: '縮景園在 1620 年開始建造，到現在大約 400 年。' },
@@ -75,6 +78,7 @@ const NODES = [
     mission: '把在台灣摺好的紙鶴，獻給原爆之子像。',
     howto: '廣島車站搭路面電車 2 號或 6 號線，到「原爆ドーム前」（原爆圓頂館前），約 15 分鐘，下車步行 3 分鐘。',
     maps: [{ label: '原爆之子像', q: '原爆の子の像' }, { label: '和平紀念資料館', q: '広島平和記念資料館' }],
+    refs: ['hiroshimaCity', 'cranes', 'hpmm', 'taipeiCNA', 'taipeiPlus'],
     quiz: [
       { q: '原子彈在廣島爆炸是哪一天？', options: ['1945 年 8 月 6 日', '1945 年 8 月 15 日', '1941 年 12 月 8 日', '1945 年 5 月 31 日'],
         explain: '1945 年 8 月 6 日。三天後（8 月 9 日），長崎也被投下原子彈。' },
@@ -106,6 +110,7 @@ const NODES = [
     mission: '在折紙鶴塔摺一隻紙鶴，丟進紙鶴牆。',
     howto: '從原爆之子像步行約 5 分鐘；折紙鶴塔就在原爆圓頂館旁。',
     maps: [{ label: '原爆圓頂館', q: '原爆ドーム' }, { label: '折紙鶴塔', q: 'おりづるタワー' }],
+    refs: ['unescoDome', 'unescoItsukushima', 'hiroshimaCity'],
     quiz: [
       { q: '原爆圓頂館為什麼沒有被拆掉？', options: ['留著提醒全世界不要再發生這種事', '因為沒有錢拆', '因為大家忘記了', '因為要改成遊樂場'],
         explain: '廣島人決定保留它，讓每個看到的人都記得戰爭的可怕。' },
@@ -135,6 +140,7 @@ const NODES = [
     mission: '在嚴島神社和海上大鳥居拍一張全家福。',
     howto: '廣島車站搭 JR 山陽本線（往岩國方向）到「宮島口」約 30 分鐘；步行到碼頭搭 JR 渡輪約 10 分鐘，另付宮島訪問稅每人 100 日圓。',
     maps: [{ label: '宮島口渡輪碼頭', q: '宮島口旅客ターミナル' }, { label: '嚴島神社', q: '厳島神社 宮島' }],
+    refs: ['unescoItsukushima', 'shintoTW', 'grandShrine', 'taoyuan'],
     quiz: [
       { q: '日本人拜拜的地方叫做什麼？', options: ['神社', '城堡', '教堂', '市場'],
         explain: '神社是日本神道教的宗教場所，入口常有紅色的「鳥居」。' },
@@ -162,11 +168,12 @@ const NODES = [
       '大和博物館近年整修，出發前請確認開放狀況與臨時展場。',
       '這一站的台灣連結最值得講：台灣少年工、台籍日本兵、高砂義勇隊。'
     ],
-    taiwan: '戰爭末期，8 千多名台灣少年到日本神奈川的海軍工廠造戰鬥機，很多人只有 12 到 15 歲。約 20 萬名台灣人被送上戰場當兵或軍屬，約 3 萬人死亡。',
+    taiwan: '戰爭末期，8 千多名台灣少年到日本神奈川的海軍工廠造戰鬥機，很多人只有 12 到 15 歲。約 20 萬名台灣人被送上戰場當兵或軍屬，約 3 萬人戰死或失蹤。',
     ask: '如果你是 13 歲的少年工，離開家人到日本造飛機，你會在想什麼？',
     mission: '在 1/10 大和號模型前，找找看船上的大砲有幾座砲塔。',
     howto: '廣島車站搭 JR 吳線「快速」到「吳」站約 40 分鐘，出站走空橋步行約 5 分鐘。',
     maps: [{ label: '大和博物館', q: '大和ミュージアム' }],
+    refs: ['yamatoMLIT', 'yamatoOfficial', 'yamatoWiki', 'causewayUSMC', 'causewayUSNI', 'shonenko', 'shonenkoBook', 'soldiersTT', 'takasago'],
     quiz: [
       { q: '大和號是什麼？', options: ['當時世界上最大的戰艦', '一架飛機', '一艘漁船', '一列火車'],
         explain: '大和號是當時世界最大的戰艦，大砲也是最大的。' },
@@ -199,6 +206,7 @@ const NODES = [
     mission: '走進潛水艇，看看船員睡的床有多窄，躺上去會不會擠？',
     howto: '就在大和博物館對面，步行 2 分鐘。',
     maps: [{ label: '鐵鯨館', q: 'てつのくじら館' }],
+    refs: ['kenpo', 'jmsdfWiki', 'zuoying', 'soldiersTT', 'soldiersWiki'],
     quiz: [
       { q: '鐵鯨館裡可以走進去參觀的是什麼？', options: ['真正的潛水艇', '戰鬥機', '火箭', '坦克'],
         explain: '那是一艘真的、退役的自衛隊潛水艇。' },
@@ -209,7 +217,7 @@ const NODES = [
       { q: '日本海軍在台灣建的、現在還在使用的軍港在哪裡？', options: ['高雄左營', '台北淡水', '花蓮', '台中清水'],
         explain: '左營軍港是日治時期日本海軍建的，戰後一直是台灣的海軍基地。' },
       { q: '戰爭時，大約有多少台灣人被送上戰場當兵或軍屬？', options: ['大約 20 萬人', '大約 200 人', '大約 2 千人', '大約 2 百萬人'],
-        explain: '大約 20 萬名台灣人，其中約 3 萬人死亡。',
+        explain: '大約 20 萬名台灣人，其中約 3 萬人戰死或失蹤。',
         taiwan: '這些人被稱為「台籍日本兵」，他們的故事在台灣比較少被提起。' }
     ]
   },
@@ -228,6 +236,7 @@ const NODES = [
     mission: '在飛機上和爸媽聊聊：這趟旅程哪一件事你印象最深？',
     howto: '退房後行李寄放飯店，逛廣島車站買伴手禮；起飛前 3 小時搭機場巴士（約 50 分鐘）。',
     maps: [{ label: '廣島車站', q: '広島駅' }, { label: '廣島機場', q: '広島空港' }],
+    refs: ['taipeiCNA', 'shimonoseki'],
     quiz: [
       { q: '1945 年的同一件事，日本叫「終戰」，台灣過去常叫什麼？', options: ['光復', '開學', '過年', '畢業'],
         explain: '同一件事有不同說法：終戰、光復、戰後、日本投降。' },
@@ -413,3 +422,34 @@ const CHECKLIST = [
   '回程日期在 4 月 28 日前（避開黃金週）',
   '和孩子一起讀禎子的故事、摺好紙鶴'
 ];
+
+// ===== 參考資料（2026-11 查核網址可開啟；數字以各來源為準，不同資料可能略有差異） =====
+const SOURCES = {
+  hiroshimaCity: { title: '1) The Atomic Bombing and the Spirit of Hiroshima', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/english/peace/1029867/1033035/1009888.html', note: '原爆至 1945 年底約 14 萬人死亡的估計' },
+  cranes: { title: 'Paper Cranes and Children’s Peace Monument', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/english/peace/1033408/1009685.html', note: '原爆之子像與獻紙鶴' },
+  hpmm: { title: '廣島和平紀念資料館', by: '官方網站', url: 'https://hpmmuseum.jp/?lang=eng', note: '開館資訊、展示內容' },
+  daihonei: { title: '絵はがきからたどる広島あの頃：広島城、広島大本営趾', by: '廣島市官方網站', url: 'https://www.city.hiroshima.lg.jp/tourism-culture/history/1003068/1027532/1032131/1032137.html', note: '甲午戰爭時大本營設於廣島城' },
+  rijo: { title: '廣島城', by: '官方網站', url: 'https://www.rijo-castle.jp/', note: '天守閣開放狀況' },
+  shimonoseki: { title: 'Treaty of Shimonoseki', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Treaty_of_Shimonoseki', note: '1895 年《馬關條約》與台灣割讓' },
+  shukkeien: { title: 'Shukkeien Garden', by: '日本觀光廳多語言解說文資料庫', url: 'https://www.mlit.go.jp/tagengo-db/en/R1-00480.html', note: '1620 年建園、原爆受損、被爆樹木' },
+  unescoDome: { title: 'Hiroshima Peace Memorial (Genbaku Dome)', by: 'UNESCO 世界遺產中心', url: 'https://whc.unesco.org/en/list/775', note: '1996 年列入世界遺產' },
+  unescoItsukushima: { title: 'Itsukushima Shinto Shrine', by: 'UNESCO 世界遺產中心', url: 'https://whc.unesco.org/en/list/776', note: '1996 年列入世界遺產' },
+  shintoTW: { title: 'Shinto in Taiwan', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shinto_in_Taiwan', note: '1937 年起的皇民化運動與台灣的神社' },
+  grandShrine: { title: 'Taiwan Grand Shrine', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taiwan_Grand_Shrine', note: '台灣神宮原址與圓山大飯店' },
+  taoyuan: { title: '桃園忠烈祠暨神社 撤日本神祇惹爭議', by: '自由時報', url: 'https://news.ltn.com.tw/news/life/paper/1572014', note: '桃園神社的保存與園區現況' },
+  yamatoMLIT: { title: '呉市海事歴史科学館（大和ミュージアム）', by: '日本觀光廳多語言解說文資料庫', url: 'https://www.mlit.go.jp/tagengo-db/R2-01781.html', note: '大和號在吳市建造、1/10 模型' },
+  yamatoOfficial: { title: '大和博物館（呉市海事歴史科学館）', by: '官方網站', url: 'https://yamato-museum.com/', note: '開館與整修資訊' },
+  yamatoWiki: { title: 'Japanese battleship Yamato', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Japanese_battleship_Yamato', note: '1945 年 4 月 7 日前往沖繩途中被擊沉' },
+  causewayUSMC: { title: 'USMC Operations in WWII, Vol. V: Victory and Occupation, Chapter II-2', by: '美國海軍陸戰隊官方戰史（HyperWar 收錄）', url: 'https://ibiblio.org/hyperwar/USMC/V/USMC-V-II-2.html', note: '登陸台灣計畫取消、改攻沖繩' },
+  causewayUSNI: { title: 'The Invasion That Never Was', by: 'Naval History 雜誌，2024 年 12 月', url: 'https://www.usni.org/magazines/naval-history/2024/december/invasion-never-was', note: '美軍登陸台灣計畫（Operation Causeway）' },
+  shonenko: { title: '長存於臺灣少年工心中的日本', by: 'nippon.com', url: 'https://www.nippon.com/hk/in-depth/a02202/', note: '台灣少年工與高座海軍工廠' },
+  shonenkoBook: { title: '林景淵編著《高座海軍工廠：八千四百名台灣少年赴日造飛機的歷史》', by: '南天書局，2021', url: '', note: '少年工約 8,400 人' },
+  soldiersTT: { title: 'Taiwan in Time: Abandoned by the rising sun', by: 'Taipei Times，2018-09-16', url: 'https://www.taipeitimes.com/News/feat/archives/2018/09/16/2003700512', note: '台籍日本兵 207,183 人、30,304 人戰死或失蹤（日本 1973 年統計）' },
+  soldiersWiki: { title: 'Taiwanese Imperial Japan Serviceman', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taiwanese_Imperial_Japan_Serviceman', note: '台籍日本兵統計（引用日本厚生勞動省）' },
+  takasago: { title: '記憶才是歷史的安魂曲：高砂義勇隊與3枚「猛2689」兵牌80年的終戰歸鄉記', by: '報導者', url: 'https://www.twreporter.org/a/80th-anniversary-of-the-end-of-ww2-takasago-giyutai', note: '高砂義勇隊在菲律賓、新幾內亞' },
+  taipeiCNA: { title: '誰是台灣的主人：總統府與府前空間的演變流轉', by: '中央社', url: 'https://www.cna.com.tw/culture/article/20190308w003', note: '1945 年 5 月 31 日總督府被炸' },
+  taipeiPlus: { title: 'Raid on Taipei: Deadliest WWII Attack on Taiwan Remembered 80 Years On', by: 'TaiwanPlus', url: 'https://www.taiwanplus.com/news/taiwan-news/special-report/250530016/raid-on-taipei-deadliest-wwii-attack-on-taiwan-remembered-80-years-on', note: '台北大空襲' },
+  kenpo: { title: 'The Constitution of Japan（英文版，第 9 條）', by: '日本眾議院', url: 'https://www.shugiin.go.jp/internet/itdb_kenpou.nsf/html/kenpou/en/constitution.htm', note: '放棄戰爭' },
+  jmsdfWiki: { title: 'JMSDF Kure Museum', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/JMSDF_Kure_Museum', note: '鐵鯨館與秋潮號潛水艇' },
+  zuoying: { title: 'Zuoying Naval Base', by: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Zuoying_Naval_Base', note: '左營軍港' }
+};

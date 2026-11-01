@@ -232,6 +232,9 @@ th { background: #f1e6cf; }
 .checklist li { margin-bottom: 6px; }
 .checklist input { width: 18px; height: 18px; vertical-align: middle; }
 .disclaimer { margin-top: 20px; }
+.refs ol { padding-left: 1.4em; margin: 0; }
+.refs li { margin-bottom: 8px; word-break: break-word; }
+.refs small { color: var(--muted); }
 
 /* 彈出訊息 */
 .toast {
