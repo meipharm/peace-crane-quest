@@ -872,7 +872,6 @@ function renderFood() {
     const zh = f.say.endsWith('ありますか。') ? '請問有賣這個嗎？' : '請給我這個';
     modal(`<p class="jp-big">${esc(f.jp)}</p><p class="jp-please">${esc(f.say)}</p><p class="muted small">（${esc(f.name)}：${zh}）</p><button class="btn ghost" data-speak="${esc(f.say)}">🔊 播放日文</button>`, '好了', null, null);
     document.querySelector('.modal [data-speak]').addEventListener('click', e => speakJa(e.currentTarget.dataset.speak));
-    speakJa(f.say);
   }));
   app.querySelectorAll('[data-speak]').forEach(b => b.addEventListener('click', () => speakJa(b.dataset.speak)));
 }
