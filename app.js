@@ -557,32 +557,58 @@ function renderQuizResult(n) {
   </section>`;
 }
 
-// ===== 時光機（排列時間軸） =====
+// ===== 時光機（把事件卡放到時間軸上對應的年份） =====
 function startTimeline() {
-  timeline = { order: shuffle(TIMELINE.map((_, i) => i)), placed: 0 };
+  timeline = { pool: shuffle(TIMELINE.map((_, i) => i)), filled: [], selected: null, mistakes: 0 };
 }
 
 function renderTimeline() {
-  const slots = TIMELINE.map((ev, i) => i < timeline.placed
-    ? `<li class="slot filled"><span class="yr">${esc(ev.year)}</span>${esc(ev.text)}</li>`
-    : `<li class="slot">${i + 1}. ？</li>`).join('');
-  const remaining = timeline.order.filter(i => i >= timeline.placed);
-  const finished = timeline.placed === TIMELINE.length;
+  const finished = timeline.filled.length === TIMELINE.length;
+  const sel = timeline.selected;
+
+  const axis = TIMELINE.map((ev, i) => {
+    const done = timeline.filled.includes(i);
+    const slot = done
+      ? `<div class="tl-slot filled">${ev.tw ? '<span class="tw-tag">台灣</span>' : ''}${esc(ev.text)}</div>`
+      : `<button class="tl-slot ${sel !== null ? 'ready' : ''}" data-slot="${i}"><span class="clue">${esc(ev.clue)}</span><span class="drop">${sel !== null ? '放在這裡？' : '？'}</span></button>`;
+    return `<li class="tl-stop ${done ? 'done' : ''}">
+      <div class="tl-date">${esc(ev.label)}</div>
+      ${slot}
+    </li>${ev.gap ? `<li class="tl-gap" aria-hidden="true">⋮ ${esc(ev.gap)}</li>` : ''}`;
+  }).join('');
+
+  const pool = timeline.pool.filter(i => !timeline.filled.includes(i));
+
   app.innerHTML = `
   <section class="card">
     <h1>⏳ 時光機</h1>
-    <p>把下面的事件<b>從最早到最晚</b>依序點選，排出正確的時間軸！${state.timelineDone ? '' : '第一次完成可得 🦢 5 隻紙鶴。'}</p>
-    <ol class="slots">${slots}</ol>
+    <p>先<b>點一張事件卡</b>，再點時間軸上<b>對應的日期</b>。看看每件事中間隔了多久！${state.timelineDone ? '' : '第一次完成可得 🦢 5 隻紙鶴。'}</p>
+    ${finished ? '' : `<div class="tl-pool">
+      <p class="tl-pool-title">${sel !== null ? '👉 現在要放：' : '📦 事件卡（點一張）'}</p>
+      <div class="tl-cards">${pool.map(i => `<button class="tl-card ${sel === i ? 'selected' : ''}" data-i="${i}">${esc(TIMELINE[i].text)}</button>`).join('')}</div>
+    </div>`}
+    <ol class="tl-axis">${axis}</ol>
     ${finished
-      ? `<div class="feedback"><p class="fb-title">🎉 時間軸完成！</p><p>從甲午戰爭到日本投降，剛好 51 年。台灣的日治時期，就在這段時間裡開始和結束。</p><button class="btn" id="btn-tl-restart">再玩一次</button></div>`
-      : `<div class="tl-cards">${remaining.map(i => `<button class="tl-card" data-i="${i}">${esc(TIMELINE[i].text)}</button>`).join('')}</div>`}
+      ? `<div class="feedback"><p class="fb-title">🎉 時間軸完成！</p>
+          <p>放錯 ${timeline.mistakes} 次。從甲午戰爭到日本投降，一共 51 年；台灣的日治時期就在這段時間裡開始和結束。</p>
+          <p>你發現了嗎？1895 到 1937 隔了 42 年，可是 1945 年的四件大事，只隔了幾個月、甚至幾天。</p>
+          <button class="btn" id="btn-tl-restart">再玩一次</button></div>`
+      : ''}
   </section>`;
 
   app.querySelectorAll('.tl-card').forEach(b => b.addEventListener('click', () => {
     const i = Number(b.dataset.i);
-    if (i === timeline.placed) {
-      timeline.placed++;
-      if (timeline.placed === TIMELINE.length) {
+    timeline.selected = timeline.selected === i ? null : i;
+    renderTimeline();
+  }));
+
+  app.querySelectorAll('[data-slot]').forEach(b => b.addEventListener('click', () => {
+    const slot = Number(b.dataset.slot);
+    if (timeline.selected === null) return toast('先選一張事件卡喔！');
+    if (timeline.selected === slot) {
+      timeline.filled.push(slot);
+      timeline.selected = null;
+      if (timeline.filled.length === TIMELINE.length) {
         confetti();
         if (!state.timelineDone) {
           state.timelineDone = true;
@@ -590,13 +616,19 @@ function renderTimeline() {
         }
       }
       renderTimeline();
-    } else {
-      b.classList.remove('shake');
-      void b.offsetWidth;
-      b.classList.add('shake');
-      toast('還有更早發生的事喔！');
+      return;
     }
+    timeline.mistakes++;
+    b.classList.remove('shake');
+    void b.offsetWidth;
+    b.classList.add('shake');
+    const right = TIMELINE[timeline.selected];
+    // 每錯 3 次給一次線索提示，其他時候提示要往前或往後找
+    toast(timeline.mistakes % 3 === 0
+      ? `提示：這件事的線索是「${right.clue}」`
+      : (slot < timeline.selected ? '這件事發生得更晚喔！往下找找看' : '這件事發生得更早喔！往上找找看'));
   }));
+
   const restart = document.getElementById('btn-tl-restart');
   if (restart) restart.addEventListener('click', () => { startTimeline(); renderTimeline(); });
 }
