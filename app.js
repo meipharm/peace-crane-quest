@@ -407,6 +407,9 @@ function answer(opt) {
     toast('再想想看！');
   }
   renderQuiz();
+  // 答對後把講解和「下一題」捲進畫面
+  const fb = document.querySelector('.feedback');
+  if (fb) fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function useHint() {
@@ -536,7 +539,7 @@ function renderCollection() {
   <section class="card rank-card">
     <h1>📚 探險圖鑑</h1>
     <p>稱號：<b>${esc(rankName())}</b></p>
-    <p>累積得到 🦢 ${state.earned} 隻紙鶴｜目前有 🦢 ${state.cranes} 隻｜完成地點 ${doneCount} / ${NODES.length}</p>
+    <p>累積得到 🦢 ${state.earned} 隻紙鶴｜完成地點 ${doneCount} / ${NODES.length}</p>
   </section>
   <section class="card">
     <h2>鶴寶夥伴（${state.helpers.length} / ${NODES.length}）</h2>

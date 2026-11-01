@@ -39,10 +39,11 @@ a { color: var(--blue); }
   padding: 10px 16px;
   background: var(--ink); color: #fff;
 }
-.brand { color: #fff; text-decoration: none; font-weight: 900; white-space: nowrap; }
-.hud { display: flex; gap: 8px; align-items: center; font-size: .9rem; }
-.hud-cranes { background: var(--gold); color: var(--ink); border-radius: 999px; padding: 2px 10px; }
+.brand { color: #fff; text-decoration: none; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.hud { display: flex; gap: 8px; align-items: center; font-size: .9rem; flex: none; }
+.hud-cranes { background: var(--gold); color: var(--ink); border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
 .hud-rank { opacity: .85; white-space: nowrap; }
+@media (max-width: 480px) { .hud-rank { display: none; } }
 
 /* 底部導覽 */
 .nav {
@@ -193,8 +194,8 @@ details[open] summary { margin-bottom: 8px; }
 /* 時光機 */
 .slots { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 6px; }
 .slot { border: 2px dashed var(--line); border-radius: 10px; padding: 8px 10px; color: var(--muted); }
-.slot.filled { border-style: solid; border-color: var(--green); background: #e9f6ec; color: var(--ink); }
-.yr { display: inline-block; min-width: 72px; font-weight: 900; color: var(--red); }
+.slot.filled { border-style: solid; border-color: var(--green); background: #e9f6ec; color: var(--ink); display: flex; gap: 10px; }
+.yr { flex: none; min-width: 72px; font-weight: 900; color: var(--red); }
 .tl-cards { display: grid; gap: 8px; margin-top: 12px; }
 .tl-card {
   font: inherit; text-align: left; cursor: pointer; background: #fff;
