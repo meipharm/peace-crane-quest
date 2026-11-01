@@ -748,6 +748,29 @@ function renderJournal() {
   });
 }
 
+// ===== 日文語音：使用瀏覽器內建的語音合成，不需要網路服務 =====
+let jaVoice = null;
+function pickJaVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  jaVoice = voices.find(v => v.lang === 'ja-JP') || voices.find(v => /^ja/i.test(v.lang)) || null;
+}
+if ('speechSynthesis' in window) {
+  pickJaVoice();
+  window.speechSynthesis.onvoiceschanged = pickJaVoice;
+}
+
+function speakJa(text) {
+  if (!('speechSynthesis' in window)) return toast('這個瀏覽器不支援語音播放');
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  if (jaVoice) u.voice = jaVoice;
+  u.rate = 0.85;
+  synth.speak(u);
+  if (!jaVoice) toast('找不到日文語音，如果沒有聲音，請到手機設定加入日文語音');
+}
+
 // ===== 美食與伴手禮 =====
 function renderFood() {
   const card = f => {
@@ -761,9 +784,11 @@ function renderFood() {
       <div class="food-body">
         <h3>${esc(f.name)} <span class="jp">${esc(f.jp)}</span></h3>
         <p class="food-where">📍 ${esc(f.when)}｜${esc(f.where)}</p>
+        <div class="food-maps">${f.maps.map(m => `<a class="map-chip" href="${mapUrl('search', m.q)}" target="_blank" rel="noopener">🗺️ ${esc(m.label)}</a>`).join('')}</div>
         <p>${esc(f.desc)}</p>
         <p class="tip">💡 ${esc(f.tip)}</p>
         <div class="row">
+          <button class="btn ghost small" data-speak="${esc(f.say)}">🔊 發音</button>
           <button class="btn ghost small" data-show="${f.id}">🗣️ 給店員看</button>
           <button class="btn small ${done ? 'ghost' : ''}" data-food="${f.id}" ${done ? 'disabled' : ''}>${done ? doneText + ' ✓' : doneText + '！ +1 🦢'}</button>
         </div>
@@ -786,6 +811,12 @@ function renderFood() {
   <h2 class="section-title">🎁 必買伴手禮</h2>
   <div class="food-grid">${FOOD.filter(f => f.type === 'buy').map(card).join('')}</div>
 
+  <section class="card">
+    <h2>🗣️ 常用日語（按一下聽發音）</h2>
+    <ul class="phrases">${PHRASES.map(p => `<li><button class="phrase" data-speak="${esc(p.ja)}"><span class="ja">🔊 ${esc(p.ja)}</span><span class="zh">${esc(p.zh)}</span></button></li>`).join('')}</ul>
+    <p class="muted small">發音使用手機或電腦內建的日文語音。沒有聲音時，請確認手機沒有靜音，或到設定加入日文語音。</p>
+  </section>
+
   <details class="card refs">
     <summary>📚 參考資料（${refs.length}）</summary>
     <ol>${refs.map(r => sourceItem(SOURCES[r])).join('')}</ol>
@@ -800,8 +831,12 @@ function renderFood() {
   }));
   app.querySelectorAll('[data-show]').forEach(b => b.addEventListener('click', () => {
     const f = FOOD.find(x => x.id === b.dataset.show);
-    modal(`<p class="jp-big">${esc(f.jp)}</p><p class="jp-please">これをください。</p><p class="muted small">（${esc(f.name)}：請給我這個）</p>`, '好了', null, null);
+    const zh = f.say.endsWith('ありますか。') ? '請問有賣這個嗎？' : '請給我這個';
+    modal(`<p class="jp-big">${esc(f.jp)}</p><p class="jp-please">${esc(f.say)}</p><p class="muted small">（${esc(f.name)}：${zh}）</p><button class="btn ghost" data-speak="${esc(f.say)}">🔊 播放日文</button>`, '好了', null, null);
+    document.querySelector('.modal [data-speak]').addEventListener('click', e => speakJa(e.currentTarget.dataset.speak));
+    speakJa(f.say);
   }));
+  app.querySelectorAll('[data-speak]').forEach(b => b.addEventListener('click', () => speakJa(b.dataset.speak)));
 }
 
 // ===== 爸媽手冊 =====

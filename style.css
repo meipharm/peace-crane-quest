@@ -257,6 +257,12 @@ th { background: #f1e6cf; }
 .food-body h3 { margin: .2em 0 .2em; font-size: 1.15rem; }
 .food-body .jp { display: block; font-size: .9rem; font-weight: 700; color: var(--red); }
 .food-where { font-size: .88rem; color: var(--muted); margin: 0 0 .4em; }
+.food-maps { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 .6em; }
+.map-chip { font-size: .85rem; font-weight: 700; text-decoration: none; color: var(--blue); background: #eef6ff; border: 1px solid #b9d4f2; border-radius: 999px; padding: 3px 10px; }
+.phrases { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.phrase { width: 100%; text-align: left; font: inherit; cursor: pointer; background: #fff; border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; display: flex; flex-direction: column; }
+.phrase .ja { font-weight: 700; color: var(--ink); }
+.phrase .zh { font-size: .85rem; color: var(--muted); }
 .jp-big { font-size: 2rem; font-weight: 900; margin: .2em 0; line-height: 1.3; }
 .jp-please { font-size: 1.4rem; font-weight: 700; margin: 0; }
 

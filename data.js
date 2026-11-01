@@ -551,18 +551,18 @@ const PHOTOS = {
   home: { src: 'images/home.jpg', caption: '台北的總統府，日治時期是台灣總督府', author: 'CEphoto, Uwe Aranas', license: 'CC BY-SA 3.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0', source: 'https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Presidential-Office-Building-01.jpg' }
 };
 
-// ===== 美食與伴手禮：type eat＝要嚐試的料理、buy＝伴手禮；jp 給店員看 =====
+// ===== 美食與伴手禮：type eat＝要嚐試的料理、buy＝伴手禮；jp 給店員看；say 語音朗讀；maps Google 地圖 =====
 const FOOD = [
-  { id: 'okonomiyaki', type: 'eat', name: '廣島燒', jp: 'お好み焼き（肉玉そば）', when: 'D1 晚餐', where: '御好燒村、廣島車站', desc: '把麵糊、高麗菜、豆芽、豬肉和麵一層一層疊起來煎，不是全部混在一起，這就是廣島風。最基本的是「肉玉そば」：豬肉＋蛋＋麵。', tip: '坐在鐵板前看老闆一層層疊起來，很好玩！有小麥和蛋，會過敏要注意。', photo: 'okonomiyaki', refs: ['okonomiGuide'] },
-  { id: 'oyster', type: 'eat', name: '烤牡蠣', jp: '焼きがき', when: 'D3 宮島', where: '宮島表參道商店街', desc: '廣島的牡蠣產量是日本第一。宮島街上有現烤的牡蠣，熱呼呼地吃。', tip: '孩子吃完全烤熟的，或炸牡蠣（カキフライ）比較安心。4 月是產季尾聲。', photo: 'oyster', refs: ['oysterWiki'] },
-  { id: 'anago', type: 'eat', name: '星鰻飯', jp: 'あなごめし', when: 'D3 宮島', where: '宮島口「うえの」等店', desc: '把烤過的星鰻鋪在用醬汁煮的飯上。宮島口的老店「うえの」從 1901 年就開始賣了。', tip: '很熱門常要排隊，可以早點去，或買便當帶著吃。', photo: 'anago', refs: ['anagoGuide'] },
-  { id: 'agemomiji', type: 'eat', name: '炸楓葉饅頭', jp: '揚げもみじ', when: 'D3 宮島', where: '宮島「紅葉堂」', desc: '把楓葉饅頭裹上麵衣去炸，外面酥酥、裡面軟軟，插在竹籤上可以邊走邊吃。', tip: '剛炸好很燙，吹一吹再咬！', photo: 'agemomiji', refs: ['agemomijiGuide'] },
-  { id: 'curry', type: 'eat', name: '吳海自咖哩', jp: '呉海自カレー', when: 'D4 吳市', where: '吳市內的認證餐廳', desc: '海上自衛隊的船上每個星期五午餐吃咖哩，讓在海上很久的隊員記得今天星期幾。吳市的餐廳照各艘船的食譜做，每家味道都不一樣。', tip: '問問店員這是哪一艘船的咖哩，收集看看！', emoji: '🍛', refs: ['curryGuide'] },
-  { id: 'momiji', type: 'buy', name: '楓葉饅頭', jp: 'もみじ饅頭', when: '宮島、廣島車站', where: '宮島表參道、廣島車站伴手禮區', desc: '楓葉形狀的小蛋糕，1906 年在宮島誕生。除了紅豆，還有卡士達、巧克力、起司等口味。', tip: '一個一個分開包裝，很適合分送給同學。', photo: 'momiji', refs: ['momijiWiki', 'momijiCity'] },
-  { id: 'lemon', type: 'buy', name: '廣島檸檬點心', jp: '広島レモン', when: '廣島車站', where: '廣島車站伴手禮區', desc: '廣島的檸檬產量是日本第一，大約占全國一半。有檸檬蛋糕、檸檬糖和各種檸檬口味零食。', tip: '酸酸甜甜，大人小孩都喜歡。', emoji: '🍋', refs: ['lemonPref'] },
-  { id: 'sauce', type: 'buy', name: '御好燒醬', jp: 'お好みソース', when: '超市、廣島車站', where: '超市、廣島車站', desc: '吃廣島燒一定會用到的甜甜濃濃的醬，例如總公司在廣島市的 Otafuku（オタフク）。', tip: '回家可以自己做廣島燒！放托運行李要包好，避免漏出來。', photo: 'sauce', refs: ['otafuku', 'okonomiGuide'] },
-  { id: 'shamoji', type: 'buy', name: '宮島飯杓', jp: '宮島杓子（しゃもじ）', when: 'D3 宮島', where: '宮島表參道商店街', desc: '相傳江戶時代末期，宮島的僧人誓真發明了飯杓，教島上的人製作。現在宮島的飯杓產量是日本第一。', tip: '木頭做的，輕巧不怕摔，很適合當紀念品。', photo: 'shamoji', refs: ['shamojiWiki'] },
-  { id: 'fude', type: 'buy', name: '熊野筆', jp: '熊野筆', when: '廣島車站、百貨公司', where: '廣島車站、百貨公司', desc: '廣島縣熊野町做的毛筆、畫筆和化妝筆，1975 年被指定為日本的傳統工藝品。', tip: '送給喜歡畫畫或寫書法的人很適合。', photo: 'fude', refs: ['fudePref'] }
+  { id: 'okonomiyaki', type: 'eat', name: '廣島燒', jp: 'お好み焼き（肉玉そば）', say: 'お好み焼きの、肉玉そばをください。', when: 'D1 晚餐', where: '御好燒村、廣島車站', desc: '把麵糊、高麗菜、豆芽、豬肉和麵一層一層疊起來煎，不是全部混在一起，這就是廣島風。最基本的是「肉玉そば」：豬肉＋蛋＋麵。', tip: '坐在鐵板前看老闆一層層疊起來，很好玩！有小麥和蛋，會過敏要注意。', photo: 'okonomiyaki', maps: [{ label: '御好燒村', q: 'お好み村 広島' }, { label: '廣島車站 ekie', q: 'ekie 広島駅' }], refs: ['okonomiGuide'] },
+  { id: 'oyster', type: 'eat', name: '烤牡蠣', jp: '焼きがき', say: '焼きがきをください。', when: 'D3 宮島', where: '宮島表參道商店街', desc: '廣島的牡蠣產量是日本第一。宮島街上有現烤的牡蠣，熱呼呼地吃。', tip: '孩子吃完全烤熟的，或炸牡蠣（カキフライ）比較安心。4 月是產季尾聲。', photo: 'oyster', maps: [{ label: '宮島表參道商店街', q: '宮島表参道商店街' }], refs: ['oysterWiki'] },
+  { id: 'anago', type: 'eat', name: '星鰻飯', jp: 'あなごめし', say: 'あなごめしをください。', when: 'D3 宮島', where: '宮島口「うえの」等店', desc: '把烤過的星鰻鋪在用醬汁煮的飯上。宮島口的老店「うえの」從 1901 年就開始賣了。', tip: '很熱門常要排隊，可以早點去，或買便當帶著吃。', photo: 'anago', maps: [{ label: 'うえの 宮島口本店', q: 'あなごめし うえの 宮島口本店' }], refs: ['anagoGuide'] },
+  { id: 'agemomiji', type: 'eat', name: '炸楓葉饅頭', jp: '揚げもみじ', say: '揚げもみじをください。', when: 'D3 宮島', where: '宮島「紅葉堂」', desc: '把楓葉饅頭裹上麵衣去炸，外面酥酥、裡面軟軟，插在竹籤上可以邊走邊吃。', tip: '剛炸好很燙，吹一吹再咬！', photo: 'agemomiji', maps: [{ label: '紅葉堂（宮島）', q: '紅葉堂 宮島' }], refs: ['agemomijiGuide'] },
+  { id: 'curry', type: 'eat', name: '吳海自咖哩', jp: '呉海自カレー', say: 'くれ海自カレーをください。', when: 'D4 吳市', where: '吳市內的認證餐廳', desc: '海上自衛隊的船上每個星期五午餐吃咖哩，讓在海上很久的隊員記得今天星期幾。吳市的餐廳照各艘船的食譜做，每家味道都不一樣。', tip: '問問店員這是哪一艘船的咖哩，收集看看！', emoji: '🍛', maps: [{ label: '吳市的海自咖哩餐廳', q: '呉海自カレー 呉市' }], refs: ['curryGuide'] },
+  { id: 'momiji', type: 'buy', name: '楓葉饅頭', jp: 'もみじ饅頭', say: 'もみじまんじゅうをください。', when: '宮島、廣島車站', where: '宮島表參道、廣島車站伴手禮區', desc: '楓葉形狀的小蛋糕，1906 年在宮島誕生。除了紅豆，還有卡士達、巧克力、起司等口味。', tip: '一個一個分開包裝，很適合分送給同學。', photo: 'momiji', maps: [{ label: '宮島表參道商店街', q: '宮島表参道商店街' }, { label: '廣島車站 ekie', q: 'ekie 広島駅' }], refs: ['momijiWiki', 'momijiCity'] },
+  { id: 'lemon', type: 'buy', name: '廣島檸檬點心', jp: '広島レモン', say: 'レモンのお菓子はありますか。', when: '廣島車站', where: '廣島車站伴手禮區', desc: '廣島的檸檬產量是日本第一，大約占全國一半。有檸檬蛋糕、檸檬糖和各種檸檬口味零食。', tip: '酸酸甜甜，大人小孩都喜歡。', emoji: '🍋', maps: [{ label: '廣島車站 ekie', q: 'ekie 広島駅' }], refs: ['lemonPref'] },
+  { id: 'sauce', type: 'buy', name: '御好燒醬', jp: 'お好みソース', say: 'お好みソースはありますか。', when: '超市、廣島車站', where: '超市、廣島車站', desc: '吃廣島燒一定會用到的甜甜濃濃的醬，例如總公司在廣島市的 Otafuku（オタフク）。', tip: '回家可以自己做廣島燒！放托運行李要包好，避免漏出來。', photo: 'sauce', maps: [{ label: '廣島車站 ekie', q: 'ekie 広島駅' }], refs: ['otafuku', 'okonomiGuide'] },
+  { id: 'shamoji', type: 'buy', name: '宮島飯杓', jp: '宮島杓子（しゃもじ）', say: 'しゃもじをください。', when: 'D3 宮島', where: '宮島表參道商店街', desc: '相傳江戶時代末期，宮島的僧人誓真發明了飯杓，教島上的人製作。現在宮島的飯杓產量是日本第一。', tip: '木頭做的，輕巧不怕摔，很適合當紀念品。', photo: 'shamoji', maps: [{ label: '宮島表參道商店街', q: '宮島表参道商店街' }], refs: ['shamojiWiki'] },
+  { id: 'fude', type: 'buy', name: '熊野筆', jp: '熊野筆', say: 'くまのふではありますか。', when: '廣島車站、百貨公司', where: '廣島車站、百貨公司', desc: '廣島縣熊野町做的毛筆、畫筆和化妝筆，1975 年被指定為日本的傳統工藝品。', tip: '送給喜歡畫畫或寫書法的人很適合。', photo: 'fude', maps: [{ label: '廣島車站 ekie', q: 'ekie 広島駅' }, { label: '筆之里工房（熊野町）', q: '筆の里工房' }], refs: ['fudePref'] }
 ];
 
 // 美食照片：Wikimedia Commons 的 CC 授權或公眾領域圖片（縮圖 720px）
@@ -576,3 +576,15 @@ const FOOD_PHOTOS = {
   shamoji: { src: 'images/food/shamoji.jpg', caption: '宮島的飯杓', author: 'Daderot', license: 'CC0', licenseUrl: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en', source: 'https://commons.wikimedia.org/wiki/File:Rice_paddles,_Miyajima_-_DSC02143.JPG' },
   fude: { src: 'images/food/fude.jpg', caption: '熊野筆（筆之里工房展示的大毛筆）', author: 'Nobuyuki Kondo', license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0', source: 'https://commons.wikimedia.org/wiki/File:%E7%86%8A%E9%87%8E%E7%AD%86_%E4%BC%9D%E7%B5%B1%E5%B7%A5%E8%8A%B8%E5%A3%AB_%E4%B8%89%E6%85%AE_%E4%BD%9C_(9894801595).jpg' }
 };
+
+// 常用日語短句：ja 顯示與朗讀
+const PHRASES = [
+  { zh: '謝謝', ja: 'ありがとうございます。' },
+  { zh: '不好意思／請問', ja: 'すみません。' },
+  { zh: '請給我這個', ja: 'これをください。' },
+  { zh: '多少錢？', ja: 'いくらですか。' },
+  { zh: '可以刷卡嗎？', ja: 'カードは使えますか。' },
+  { zh: '廁所在哪裡？', ja: 'トイレはどこですか。' },
+  { zh: '我們有三個人', ja: '三人です。' },
+  { zh: '很好吃！', ja: 'おいしいです。' }
+];
