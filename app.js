@@ -584,9 +584,13 @@ function renderTimeline() {
     <h1>⏳ 時光機</h1>
     <p>先<b>點一張事件卡</b>，再點時間軸上<b>對應的日期</b>。看看每件事中間隔了多久！${state.timelineDone ? '' : '第一次完成可得 🦢 5 隻紙鶴。'}</p>
     ${finished ? '' : `<div class="tl-pool">
-      <p class="tl-pool-title">${sel !== null ? '👉 現在要放：' : '📦 事件卡（點一張）'}</p>
+      <p class="tl-pool-title">📦 事件卡（點一張）</p>
       <div class="tl-cards">${pool.map(i => `<button class="tl-card ${sel === i ? 'selected' : ''}" data-i="${i}">${esc(TIMELINE[i].text)}</button>`).join('')}</div>
     </div>`}
+    ${sel !== null ? `<div class="tl-selected">
+      <span>👉 現在要放：<b>${esc(TIMELINE[sel].text)}</b></span>
+      <button class="btn ghost small" id="btn-tl-cancel">換一張</button>
+    </div>` : ''}
     <ol class="tl-axis">${axis}</ol>
     ${finished
       ? `<div class="feedback"><p class="fb-title">🎉 時間軸完成！</p>
@@ -629,6 +633,8 @@ function renderTimeline() {
       : (slot < timeline.selected ? '這件事發生得更晚喔！往下找找看' : '這件事發生得更早喔！往上找找看'));
   }));
 
+  const cancel = document.getElementById('btn-tl-cancel');
+  if (cancel) cancel.addEventListener('click', () => { timeline.selected = null; renderTimeline(); });
   const restart = document.getElementById('btn-tl-restart');
   if (restart) restart.addEventListener('click', () => { startTimeline(); renderTimeline(); });
 }

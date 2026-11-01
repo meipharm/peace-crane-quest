@@ -343,10 +343,11 @@ th { background: #f1e6cf; }
 }
 
 /* 時光機：事件卡放到時間軸 */
-.tl-pool { position: sticky; top: 52px; z-index: 5; background: var(--card); padding: 8px 0; margin: 0 -4px 8px; border-bottom: 2px dashed var(--line); }
+.tl-pool { padding: 4px 0 10px; margin-bottom: 8px; border-bottom: 2px dashed var(--line); }
 .tl-pool-title { margin: 0 4px 6px; font-weight: 700; }
-.tl-pool .tl-cards { display: flex; gap: 8px; overflow-x: auto; padding: 4px 4px 8px; margin: 0; }
-.tl-pool .tl-card { flex: 0 0 190px; font-size: .95rem; }
+.tl-pool .tl-cards { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin: 0; }
+.tl-pool .tl-card { font-size: .92rem; padding: 8px 10px; line-height: 1.45; }
+.tl-selected { position: sticky; top: 52px; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #fff3c4; border: 2px solid var(--gold); border-radius: 12px; padding: 8px 12px; margin: 0 0 10px; box-shadow: var(--shadow); }
 .tl-card.selected { background: #fff3c4; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold); }
 .tl-axis { list-style: none; margin: 8px 0 0; padding: 0 0 0 22px; border-left: 4px solid var(--red); }
 .tl-stop { position: relative; margin: 0 0 4px; }
