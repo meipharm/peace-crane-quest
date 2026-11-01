@@ -9,7 +9,7 @@ function freshState() {
   return {
     cranes: 0, earned: 0, completed: {}, best: {},
     helpers: [], missions: {}, talks: {}, notes: {}, badges: [],
-    timelineDone: false, checklist: {}, food: {}
+    timelineDone: false, checklist: {}, food: {}, journal: {}
   };
 }
 
@@ -165,6 +165,7 @@ function route() {
   else if (view === 'collection') renderCollection();
   else if (view === 'parents') renderParents();
   else if (view === 'food') renderFood();
+  else if (view === 'journal') renderJournal();
   else renderHome();
   window.scrollTo(0, 0);
 }
@@ -190,6 +191,7 @@ function renderHome() {
     </ol>
     <div class="row">
       <a class="btn big" href="#/map">出發！打開地圖</a>
+      <a class="btn ghost" href="#/journal">📖 我的遊記</a>
       <a class="btn ghost" href="#/parents">爸媽手冊</a>
     </div>
   </section>`;
@@ -324,6 +326,7 @@ function renderNode(n) {
     <p class="ask">${esc(n.ask)}</p>
     <textarea id="talk-note" rows="3" placeholder="可以把你的想法寫在這裡（只存在這台裝置）"></textarea>
     <button class="btn ${talked ? 'ghost' : ''}" id="btn-talk" ${talked ? 'disabled' : ''}>${talked ? '已經聊過了 ✓' : '我們聊過了！ +1 🦢'}</button>
+    <p class="small"><a href="#/journal">📖 寫下的想法會收進「我的遊記」，可以匯出成 PDF</a></p>
   </section>
 
   <section class="card">
@@ -630,6 +633,11 @@ function renderCollection() {
     <div class="badge-grid">${badgeCards}</div>
   </section>
   <section class="card">
+    <h2>📖 我的遊記</h2>
+    <p>把每一站和爸媽聊聊的想法整理成遊記，可以存成 PDF 留作紀念。</p>
+    <a class="btn" href="#/journal">打開我的遊記</a>
+  </section>
+  <section class="card">
     <h2>重新開始</h2>
     <p class="muted small">會清除這台裝置上的所有進度，包括紙鶴、鶴寶、徽章和筆記。</p>
     <button class="btn ghost" id="btn-reset">清除進度</button>
@@ -645,6 +653,98 @@ function renderCollection() {
       toast('進度已清除');
       renderCollection();
     });
+  });
+}
+
+// ===== 我的遊記（可列印存成 PDF） =====
+function journalBody() {
+  const j = state.journal;
+  const nodes = NODES.slice().sort((a, b) => a.day - b.day);
+  const doneCount = Object.keys(state.completed).length;
+  const lines = '<div class="j-lines"><span></span><span></span><span></span></div>';
+
+  const entries = nodes.map(n => {
+    const p = PHOTOS[n.photo];
+    const note = (state.notes[n.id] || '').trim();
+    return `<section class="j-entry">
+      <div class="j-entry-head"><span class="day-tag">Day ${n.day}</span><h3>${n.icon} ${esc(n.name)}</h3></div>
+      ${p ? `<figure class="j-photo"><img src="${esc(p.src)}" alt="${esc(p.caption)}"><figcaption>${photoCredit(p)}</figcaption></figure>` : ''}
+      <p class="j-q">💬 ${esc(n.ask)}</p>
+      <div class="j-note">${note ? esc(note) : '<span class="muted">（還沒寫，可以印出來用筆寫在這裡）</span>' + lines}</div>
+      <p class="j-meta">${state.completed[n.id] ? `⚔️ 挑戰完成，第一次就答對 ${state.best[n.id] || 0} / ${n.quiz.length} 題` : '⚔️ 挑戰未完成'}｜${state.missions[n.id] ? '📸 任務完成' : '📸 任務未完成'}${state.talks[n.id] ? '｜💬 和爸媽聊過了' : ''}</p>
+      <p class="j-tw"><b>台灣連結：</b>${esc(n.taiwan)}</p>
+    </section>`;
+  }).join('');
+
+  const foods = FOOD.map(f => `<li>${state.food[f.id] ? '✅' : '⬜'} ${esc(f.name)}（${esc(f.jp)}）</li>`).join('');
+  const badges = BADGES.filter(b => state.badges.includes(b.id)).map(b => `<span class="j-badge">${b.icon} ${esc(b.name)}</span>`).join('') || '<span class="muted">還沒有徽章</span>';
+  const helpers = state.helpers.map(h => craneSVG(HELPERS[h].color, 40)).join('');
+
+  return `
+  <section class="j-cover">
+    <div class="j-cranes">${craneSVG('#d94b4b', 70)}${craneSVG('#e8b33a', 56)}${craneSVG('#3b7dd8', 64)}</div>
+    <h1>我的廣島和平之旅</h1>
+    <p class="j-sub">和平紙鶴大冒險・遊記</p>
+    <p>作者：${esc(j.author || '＿＿＿＿＿＿')}</p>
+    <p>旅行日期：${esc(j.dates || '＿＿＿＿＿＿')}</p>
+    <p>稱號：${esc(rankName())}｜累積紙鶴 🦢 ${state.earned} 隻｜完成地點 ${doneCount} / ${NODES.length}</p>
+    ${helpers ? `<div class="j-helpers">${helpers}</div>` : ''}
+  </section>
+  ${entries}
+  <section class="j-entry">
+    <h3>🍡 吃過、買到的東西</h3>
+    <ul class="j-food">${foods}</ul>
+    <h3>🏅 我的徽章</h3>
+    <div>${badges}</div>
+  </section>
+  <section class="j-entry">
+    <h3>✍️ 整趟旅程的心得</h3>
+    <div class="j-note">${(j.summary || '').trim() ? esc(j.summary.trim()) : lines + lines}</div>
+  </section>
+  <p class="j-foot">和平紙鶴大冒險 https://meipharm.github.io/peace-crane-quest/ ｜照片來自 Wikimedia Commons（CC 授權），作者與授權標示於各照片下方。</p>`;
+}
+
+function renderJournal() {
+  const j = state.journal;
+  app.innerHTML = `
+  <section class="card no-print">
+    <h1>📖 我的遊記</h1>
+    <p>每一站「和爸媽聊聊」寫下的想法，會自動整理在下面。填好作者和日期，就可以匯出成 PDF 留作紀念。</p>
+    <label class="field">遊記作者<input id="j-author" maxlength="30" placeholder="例如：小明"></label>
+    <label class="field">旅行日期<input id="j-dates" maxlength="40" placeholder="例如：2027/4/12–4/16"></label>
+    <label class="field">整趟旅程的心得<textarea id="j-summary" rows="4" placeholder="回家路上寫下這趟旅程最難忘的事"></textarea></label>
+    <p class="muted small">這些內容只存在這台裝置，不會上傳。</p>
+    <button class="btn big" id="btn-print">📄 匯出 PDF</button>
+    <details class="howto-pdf">
+      <summary>怎麼存成 PDF？</summary>
+      <ul>
+        <li><b>電腦</b>：按「匯出 PDF」，印表機選「另存為 PDF」或「Microsoft Print to PDF」。</li>
+        <li><b>iPhone</b>：按「匯出 PDF」，在列印畫面點右上角「分享」，選「儲存到檔案」。</li>
+        <li><b>Android</b>：按「匯出 PDF」，印表機選「儲存為 PDF」，再按下載圖示。</li>
+      </ul>
+    </details>
+  </section>
+  <div class="journal" id="journal">${journalBody()}</div>`;
+
+  const bind = (id, key) => {
+    const el = document.getElementById(id);
+    el.value = j[key] || '';
+    el.addEventListener('input', () => {
+      state.journal[key] = el.value;
+      saveState();
+      document.getElementById('journal').innerHTML = journalBody();
+    });
+  };
+  bind('j-author', 'author');
+  bind('j-dates', 'dates');
+  bind('j-summary', 'summary');
+
+  document.getElementById('btn-print').addEventListener('click', () => {
+    // PDF 檔名會用網頁標題
+    const oldTitle = document.title;
+    document.title = `廣島遊記${j.author ? '-' + j.author : ''}`;
+    window.addEventListener('afterprint', () => { document.title = oldTitle; }, { once: true });
+    window.print();
   });
 }
 
